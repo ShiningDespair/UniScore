@@ -1,0 +1,29 @@
+.footerBody{
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    justify-content:baseline;
+    justify-content: space-between;
+    border: 10px;
+    font-family:  'Mulish', sans-serif;
+}
+
+.generalFooter{
+
+    width: 100%;
+    border-color: #f4f4f4;
+    border-style: solid;
+    border-width: 0.01rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #587F82;
+    color: rgb(4, 38, 44);
+}
+body {
+    min-height: 100vh;
+}
+
+h2{
+    text-decoration: underline;
+}
