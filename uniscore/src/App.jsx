@@ -1,6 +1,7 @@
 import './App.css';
 import Header from'./View/Components/Header';
-import Footer from './View/Components/Footer'
+import Footer from './View/Components/Footer';
+import RegistirationPage from './View/Pages/RegistirationPage';
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <Header/>
       </header>
       <body>
-        <p>Test</p>
+        <RegistirationPage/>
       </body>
       <p>Test2</p>
 
