@@ -2,19 +2,19 @@ import './Footer.css';
 
 function Footer() {
     return(
-        <div class='generalFooter'>
-            <div class ='footerBody'>
-                <div class='UniScore'>
+        <div className='generalFooter'>
+            <div className ='footerBody'>
+                <div className='UniScore'>
                     <h1> UniScore</h1>
                 </div>
 
-                <div class ='yasalMevzuat'>
+                <div className ='yasalMevzuat'>
                     <h2>Yasal Mevzuat</h2>
                     <p>Gizlilik Sözleşmesi</p>
                     <p>Çerez Politikası</p>
                 </div>
 
-                <div class ='baglantilar'>
+                <div className ='baglantilar'>
                     <h2>Bağlantılar</h2>
                     <p>Hakkmızda</p>
                     <p>İletişim</p>
@@ -22,7 +22,7 @@ function Footer() {
                     <p>Anasayfa</p>
                 </div>
 
-                <div class ='sosyalMedya'>
+                <div className ='sosyalMedya'>
                     <p>İnstagram</p>
                     <p>Twitter</p>
                 </div>

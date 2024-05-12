@@ -17,6 +17,8 @@ img{
 
 .generalHeader{
     width: 100%;
+    left: 0;
+    top:0;
     border-color: #f4f4f4;
     border-style: solid;
     border-width: 0.01rem;
@@ -25,4 +27,5 @@ img{
     align-items: center;
     background-color: #587F82;
     color: rgb(4, 38, 44);
+    position: fixed;
   }

@@ -2,7 +2,7 @@ import './Header.css';
 
 function Header() {
   return (
-    <div class ="generalHeader">
+    <div className ="generalHeader">
     <div className='headerBody'>
       <img src='Icons/home.png' alt='Home Icon' />
       <p>Hakkımızda</p>
