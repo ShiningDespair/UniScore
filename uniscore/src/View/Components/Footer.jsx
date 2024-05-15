@@ -23,6 +23,7 @@ function Footer() {
                 </div>
 
                 <div className ='sosyalMedya'>
+                    <h2>Sosyal Medya</h2>
                     <p>İnstagram</p>
                     <p>Twitter</p>
                 </div>
