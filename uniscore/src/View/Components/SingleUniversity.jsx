@@ -1,6 +1,10 @@
 import './SingleUniversity.css'
+import University from '../../Controller/University';
+//university.rank,university.city
 
-function SingleUniversity() {
+function SingleUniversity(props) {
+    const university = props.university;
+
     return(
         <div class="container">
             <div class="upper">
@@ -10,17 +14,21 @@ function SingleUniversity() {
             </div>
            
             <div class ="lower">
+                <div>
+                    <p class="uni-title">{university.name}</p>
+                </div>
+
                 <div class="rate">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star-half-alt checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
                 </div>
                 <div class="uni-property">
                     <p>
-                    Sıralama = 9999<br />
-                    Şehir = İstanbul
+                    Sıralama = {university.rank}<br />
+                    Şehir = {university.city}
                     </p>
                 </div>
 
