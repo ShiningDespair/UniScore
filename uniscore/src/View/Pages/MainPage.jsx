@@ -1,12 +1,48 @@
 import './MainPage.css';
 import SingleUniversity  from '../Components/SingleUniversity';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Select from 'react-select';
 import University from '../../Controller/University';
 
 function MainPage() {
 
-    const university = new University("İstanbul Aydın Üniversitesi", 1, "İstanbul");
+    const university = new University(1,"İstanbul Aydın Üniversitesi", 1, "İstanbul");
+    const university2 = new University(2,"İstanbul Aydın Üniversitesi", 1, "İstanbul");
+
+    const [universities, setUniversities] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1);
+    };
+
+    const handlePrevPage = () => {
+        if(currentPage>1){
+            setCurrentPage(currentPage - 1);
+        }
+        
+    };
+
+
+    useEffect(() => {
+        // Function to fetch universities from the database
+        async function fetchUniversities() {
+            try {
+                // Fetch universities logic goes here
+                // Example: const response = await UniversityService.getUniversities(currentPage);
+                // const data = response.data;
+                // setUniversities(data);
+                // For now, setting a single university as an example
+                setUniversities([university]);
+            } catch (error) {
+                console.error('Error fetching universities:', error);
+            }
+        }
+
+        fetchUniversities();
+    }, [currentPage]); // Fetch universities when currentPage changes
+    
+
 
     const SortBy = [
         { value: 'A', label: 'Popülerlik' },
@@ -77,7 +113,11 @@ Cras tristique odio et condimentum viverra. Praesent venenatis sed lacus quis rh
             </div>
             <div class="Universities-Container">
                     <div class ="u1">1</div>
-                    <SingleUniversity university={university}/>
+                    {/* Render SingleUniversity components for each university */}
+                        {universities.map((university, index) => (
+                            <SingleUniversity key={index} university={university} index={(currentPage - 1) * 6 + index + 1} />
+                        ))}
+
                     <div class ="u1">3</div>
                     <div class ="u1">4</div>
                     <div class ="u1">5</div>
@@ -89,16 +129,14 @@ Cras tristique odio et condimentum viverra. Praesent venenatis sed lacus quis rh
         <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
+                    <a onClick={handlePrevPage} class="page-link" href="#" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span>
                     </a>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#"> {currentPage} </a></li>
                     <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
+                    <a onClick={handleNextPage} class="page-link" href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
                     </a>
