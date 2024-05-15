@@ -1,9 +1,12 @@
 import './MainPage.css';
 import SingleUniversity  from '../Components/SingleUniversity';
-import React from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
+import University from '../../Controller/University';
 
 function MainPage() {
+
+    const university = new University("İstanbul Aydın Üniversitesi", 1, "İstanbul");
 
     const SortBy = [
         { value: 'A', label: 'Popülerlik' },
@@ -16,6 +19,7 @@ function MainPage() {
         { value: 'B', label: 'Ankara' },
 
       ];
+
 
   return (
     <div className ="MainPageBody">
@@ -54,7 +58,7 @@ Cras tristique odio et condimentum viverra. Praesent venenatis sed lacus quis rh
 
             <div class="Sort-And-Filter"> 
                 <div class="Sort-Container" >        
-                        <Select options={SortBy} />
+                        <Select  placeholder='Sırala' options={SortBy} />
 
                         <form class="radio-group">
                             <label>
@@ -68,12 +72,12 @@ Cras tristique odio et condimentum viverra. Praesent venenatis sed lacus quis rh
 
                         </form>
 
-                        <Select options={Cities} />
+                        <Select  placeholder='Şehir Seç' options={Cities} />
                 </div>  
             </div>
             <div class="Universities-Container">
                     <div class ="u1">1</div>
-                    <SingleUniversity/>
+                    <SingleUniversity university={university}/>
                     <div class ="u1">3</div>
                     <div class ="u1">4</div>
                     <div class ="u1">5</div>
