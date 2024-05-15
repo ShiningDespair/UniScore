@@ -1,0 +1,58 @@
+@import url("https://unicons.iconscout.com/release/v2.1.9/css/unicons.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css");
+
+.container {
+
+    border-radius: 4%;
+    display: grid;
+    grid-template-columns: 1fr; /* Make the columns fill the entire width */
+    grid-template-rows: 1fr 1fr; /* Divide into two rows of equal height */
+   
+}
+
+.container .upper {
+    background-color: yellow;
+    width: 100%; /* Fill the entire width of the column */
+    height: 100%; /* Fill the entire height of the row */
+    border: 1px solid black; /* Just for visualization */
+    background-image: url('C:/Users/mehme/OneDrive/Masaüstü/UniScore/uniscore/public/Images/iau_wp.jpg');
+    background-size: cover; /* Cover the entire container */
+    background-position:center; /* Center the background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    border-radius: 20% 20% 0% 0%;
+
+
+}
+
+.uni-logo{
+    width: 60px; /* Set the desired width */
+    height: 60px; /* Set the desired height */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    background-color: rgba(184, 177, 177, 0.629);
+    border-radius: 100%;
+}
+
+.container .lower {
+    background-color: rgb(155, 171, 223);
+    width: 100%; /* Fill the entire width of the column */
+    height: 100%; /* Fill the entire height of the row */
+    border: 1px solid black; /* Just for visualization */
+    display: grid;
+    grid-template-columns: 1fr; /* Make the columns fill the entire width */
+    grid-template-rows: 1fr 3fr; /* Divide into two rows of equal height */
+   
+}
+
+.checked {
+    color: cyan;
+}
+
+.rate{
+    text-align: right;
+}
+
+

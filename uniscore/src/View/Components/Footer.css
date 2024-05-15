@@ -19,6 +19,9 @@
     align-items: center;
     background-color: #587F82;
     color: rgb(4, 38, 44);
+    height: 200px;
+    bottom: 0;
+    padding: 10px 10px 0px 10px;
 }
 body {
     min-height: 100vh;
