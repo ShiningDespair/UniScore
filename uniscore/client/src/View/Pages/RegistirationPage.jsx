@@ -52,12 +52,6 @@ function RegistirationPage() {
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
 											<button onClick={handleClickLogIn} class="btn mt-4">Login</button>
-                      <div class="form-group mt-2">
-                        <p>Or</p>
-											<a href="https://www.web-leb.com/code" class="btn "><i class="fa-brands fa-facebook-f"></i></a>
-											<a href="https://www.web-leb.com/code" class="btn "><i class="fa-brands fa-google"></i></a>
-                      <a href="https://www.web-leb.com/code" class="btn "><i class="fa-brands fa-github"></i></a>
-											</div>
                       <p class="mb-0 mt-4 text-center"><a href="https://www.web-leb.com/code" class="link">Forgot your password?</a></p>
 				      					</div>
 			      					</div>
