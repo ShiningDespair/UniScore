@@ -6,7 +6,7 @@ function Header() {
     <div className='headerBody'>
       <img src='Icons/home.png' alt='Home Icon' />
       <p>Hakkımızda</p>
-      <h1>UniScore</h1>
+      <h1>UniSkor</h1>
       <p>İletişim</p>
       <img src='Icons/account.png' alt='Account Icon'/>
 
