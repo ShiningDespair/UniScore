@@ -1,14 +1,15 @@
 import './Header.css';
+import {Link} from 'react-router-dom';
 
 function Header() {
   return (
     <div className ="generalHeader">
     <div className='headerBody'>
-      <img src='Icons/home.png' alt='Home Icon' />
+    <Link to ="/"k> <img src='Icons/home.png' alt='Home Icon' /></Link>
       <p>Hakkımızda</p>
       <h1>UniSkor</h1>
       <p>İletişim</p>
-      <img src='Icons/account.png' alt='Account Icon'/>
+     <Link to ="/Registiration"> <img src='Icons/account.png' alt='Account Icon'/></Link>
 
     </div>
     </div>
