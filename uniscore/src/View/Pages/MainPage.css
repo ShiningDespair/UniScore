@@ -93,6 +93,7 @@
     grid-column: 1/4;
     grid-row: 6/14;
     height: 60%;
+    padding: 20px;
     
 }
 .Sort-Container{
@@ -119,6 +120,7 @@
     justify-content: center;
     column-gap: 10%;
     row-gap: 10%;
+    padding-top: 20px;
     
 }
 .u1{

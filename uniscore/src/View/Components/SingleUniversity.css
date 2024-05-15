@@ -16,7 +16,7 @@
     width: 100%; /* Fill the entire width of the column */
     height: 100%; /* Fill the entire height of the row */
     border: 1px solid black; /* Just for visualization */
-    background-image: url('C:/Users/mehme/OneDrive/Masaüstü/UniScore/uniscore/public/Images/iau_wp.jpg');
+    background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FIAUKampus%2Fphotos%2Fa.450802783904%2F10158093061313905%2F%3Ftype%3D3&psig=AOvVaw3AoYmX9Gs6PTiufnJ4xjI8&ust=1715855582211000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJjip6e6j4YDFQAAAAAdAAAAABAE');
     background-size: cover; /* Cover the entire container */
     background-position:center; /* Center the background */
     display: flex;
@@ -38,13 +38,18 @@
 
 .container .lower {
     background-color: rgb(155, 171, 223);
-    width: 100%; /* Fill the entire width of the column */
-    height: 100%; /* Fill the entire height of the row */
-    border: 1px solid black; /* Just for visualization */
+    width: 100%; 
+    height: 100%; 
+    border: 1px solid black; 
     display: grid;
-    grid-template-columns: 1fr; /* Make the columns fill the entire width */
-    grid-template-rows: 1fr 3fr; /* Divide into two rows of equal height */
+    grid-template-columns: 1fr; 
+    grid-template-rows: auto auto 1fr; 
    
+}
+
+.uni-title{
+    text-align: center;
+    justify-content: center;
 }
 
 .checked {
@@ -54,5 +59,7 @@
 .rate{
     text-align: right;
 }
+
+
 
 

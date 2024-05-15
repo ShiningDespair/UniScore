@@ -1,5 +1,7 @@
 import React from 'react';
+import Select from 'react-select'
 import './RegistirationPage.css'
+
 
 function RegistirationPage() {
 
@@ -19,6 +21,12 @@ function RegistirationPage() {
 	const handleClickForgotPassword = () => {
 		//Detaylıca bakılacak
 	}
+
+	const Universities = [
+        { value: 'A', label: 'İAÜ' },
+        { value: 'B', label: 'OMÜ' },
+
+      ];
   return (
 <div class="body">
 	<div class="section">
@@ -59,19 +67,30 @@ function RegistirationPage() {
 										<div class="section text-center">
 											<h4 class="mb-3 pb-3">Sign Up</h4>
 											<div class="form-group">
-												<input type="text" class="form-style" placeholder="Full Name"/>
+												<input type="text" class="form-style" placeholder="İsim" required/>
+												<i class="input-icon uil uil-user"></i>
+											</div>	
+											<div class="form-group">
+												<input type="text" class="form-style" placeholder="Soyisim" required/>
 												<i class="input-icon uil uil-user"></i>
 											</div>	
 											<div class="form-group mt-2">
-												<input type="tel" class="form-style" placeholder="Phone Number"/>
+												<input type="tel" class="form-style" placeholder="Telefon Numarası"/>
 												<i class="input-icon uil uil-phone"></i>
 											</div>	
-                      <div class="form-group mt-2">
-												<input type="email" class="form-style" placeholder="Email"/>
-												<i class="input-icon uil uil-at"></i>
-											</div>
 											<div class="form-group mt-2">
-												<input type="password" class="form-style" placeholder="Password"/>
+												<input type="email" class="form-style" placeholder="Okul Maili" required/>
+												<i class="input-icon uil uil-at"></i>
+											</div>	
+                    					  <div class="form-group mt-2">
+											
+										 		 <Select  class="form-style" placeholder='Şehir Seç' options={Universities} />
+											
+												<i class="input-icon uil uil-university"></i>
+											</div>
+											
+											<div class="form-group mt-2">
+												<input type="password" class="form-style" placeholder="Şifre" required/>
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
 											<button onClick={handleClickRegister} class="btn mt-4">Register</button>
