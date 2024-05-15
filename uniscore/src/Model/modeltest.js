@@ -12,6 +12,10 @@ sequelize.authenticate().then(() => {
     console.error("Connection Error to Database:", err);
 });
 
+
+
+
+
 // Örnek bir sorgu
 sequelize.query('SELECT uni_name FROM universities', { type: sequelize.QueryTypes.SELECT })
   .then(results => {
