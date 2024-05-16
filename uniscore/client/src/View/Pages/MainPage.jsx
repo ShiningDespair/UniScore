@@ -1,4 +1,4 @@
-import './MainPage.css';
+import MainCSS from './MainPage.module.css';
 import SingleUniversity  from '../Components/SingleUniversity';
 import React, { useState,useEffect } from 'react';
 import Select from 'react-select';
@@ -7,7 +7,7 @@ import University from '../../Helpers/University';
 function MainPage() {
 
     const university = new University(1,"İstanbul Aydın Üniversitesi", 1, "İstanbul");
-    const university2 = new University(2,"İstanbul Aydın Üniversitesi", 1, "İstanbul");
+
 
     const [universities, setUniversities] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -58,42 +58,33 @@ function MainPage() {
 
 
   return (
-    <div className ="MainPageBody">
-        <div className="Layout"> 
-            <div class="Welcome">
-                <div class="imageOlacak"></div>
+    <div className ={MainCSS.MainPageBody}>
+        <div className={MainCSS.Layout}> 
+            <div class={MainCSS.Welcome}>
+                <div class={MainCSS.imageOlacak}></div>
 
                 { /*Overflow is hidden at Welcome-Text, textin taşmaması için belirli bir karakterin altında olması lazım */}
-                <p class="Welcome-Text">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum, eros non pharetra viverra, quam tortor placerat enim, id efficitur eros quam ut mi. Aliquam erat quam, varius ut tristique ut, sollicitudin ac sapien. Donec molestie convallis egestas. Nullam fringilla nisl magna, at mollis ipsum sollicitudin at. Nulla maximus arcu convallis rutrum lacinia. Nullam sagittis at risus ac fringilla. Sed iaculis, turpis quis eleifend pulvinar, orci metus faucibus est, eget semper odio ante nec mi. Sed porta lobortis egestas. Pellentesque id orci scelerisque, molestie sapien ut, sagittis ligula. Ut sit amet euismod ante. Ut porta augue et scelerisque commodo. Mauris volutpat hendrerit rhoncus. Donec suscipit tellus nec quam venenatis tempus. Proin sollicitudin sodales est a tempus.
-
-Nunc tempor nisl magna, id posuere nunc varius non. Vestibulum efficitur enim vel eleifend auctor. Nulla justo risus, lacinia vel justo non, aliquet rhoncus urna. Donec vel fringilla neque. Aenean malesuada magna nec condimentum ornare. Morbi feugiat dignissim est, in egestas ligula pulvinar at. Morbi vitae neque vel lacus placerat egestas. Nullam sit amet faucibus ligula, vestibulum luctus magna. Aliquam at purus eu massa facilisis pellentesque quis ut nisl.
-
-Maecenas venenatis ultrices ante, ac ultrices arcu pulvinar nec. Aenean accumsan eleifend facilisis. Integer elementum tempor leo, fermentum rutrum leo congue nec. Fusce eu ipsum convallis felis aliquam ullamcorper. Donec egestas ligula non euismod accumsan. Integer non hendrerit nisl. Nam luctus vestibulum lectus at hendrerit.
-
-Cras tristique odio et condimentum viverra. Praesent venenatis sed lacus quis rhoncus. Sed vitae dui dui. Pellentesque pharetra tempor ante sit amet ultrices. Aenean dapibus pharetra arcu id aliquam. Integer volutpat est nisi. Aliquam tempor sollicitudin convallis. Integer non efficitur tortor. Etiam consequat nibh ut ornare lacinia. Pellentesque fringilla tellus vestibulum ultricies eleifend.
-
-                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas mollis, nibh quis rhoncus commodo, diam tortor auctor dui, non tempor erat quam ut leo. In posuere urna sit amet lorem euismod, nec lacinia neque blandit. Maecenas venenatis sapien risus, sit amet pellentesque purus sollicitudin nec. Praesent vel viverra dui. Etiam malesuada pellentesque enim nec fermentum. Duis ultrices fermentum tellus et malesuada. Nam scelerisque massa eu elit convallis bibendum ut eget ipsum. Sed commodo, ligula vel maximus vestibulum, sem lectus sagittis purus, eu suscipit diam magna non mi. Pellentesque sed mi mauris. Vivamus sollicitudin ligula eleifend, viverra ligula viverra, sagittis arcu. Fusce vitae tellus lacinia, vulputate eros sit amet, tristique diam. Curabitur sit amet feugiat tortor.</p>
+                <p class={MainCSS.WelcomeText}> non pharetra viverra, quam tortor placerat enim, id efficitur eros quam ut mi. Aliquam erat quam, varius ut tristique ut, sollicitudin ac sapien. Donec molestie convallis egestas. Nullam fringilla nisl magna, at mollis ipsum sollicitudin at. Nulla maximus arcu convallis rutrum lacinia. Nullam sagittis at risus ac fringilla. Sed iaculis, turpis quis eleifend pulvinar, orci metus faucibus est, eget semper odio ante nec mi. Sed porta lobortis egestas. Pellentesque id orci scelerisque, molestie sapien ut, sagittis ligula. Ut sit amet euismod ante. Ut porta augue et scelerisque commodo. Mauris volutpat hendrerit rhoncus. Donec suscipit tellus nec quam venenatis tempus. Proin sollicitudin sodales est a tempusNunc tempor nisl magna, id posuere nunc varius non. Vestibulum efficitur enim vel eleifend auctor. Nulla justo risus, lacinia vel justo non, aliquet rhoncus urna. Donec vel fringilla neque. Aenean malesuada magna nec condimentum ornare. Morbi feugiat dignissim est, in egestas ligula pulvinar at. Morbi vitae neque vel lacus placerat egestas. Nullam sit amet faucibus ligula, vestibulum luctus magna. Aliquam at purus eu massa facilisis pellentesque quis ut nisl.Maecenas venenatis ultrices ante, ac ultrices arcu pulvinar nec. Aenean accumsan eleifend facilisis. Integer elementum tempor leo, fermentum rutrum leo congue nec. Fusce eu ipsum convallis felis aliquam ullamcorper. Donec egestas ligula non euismod accumsan. Integer non hendrerit nisl. Nam luctus vestibulum lectus at hendrerit.Cras tristique odio et condimentum viverra. Praesent venenatis sed lacus quis rhoncus. Sed vitae dui dui. Pellentesque pharetra tempor ante sit amet ultrices. Aenean dapibus pharetra arcu id aliquam. Integer volutpat est nisi. Aliquam tempor sollicitudin convallis. Integer non efficitur tortor. Etiam consequat nibh ut ornare lacinia. Pellentesque fringilla tellus vestibulum ultricies eleifend.Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas mollis, nibh quis rhoncus commodo, diam tortor auctor dui, non tempor erat quam ut leo. In posuere urna sit amet lorem euismod, nec lacinia neque blandit. Maecenas venenatis sapien risus, sit amet pellentesque purus sollicitudin nec. Praesent vel viverra dui. Etiam malesuada pellentesque enim nec fermentum. Duis ultrices fermentum tellus et malesuada. Nam scelerisque massa eu elit convallis bibendum ut eget ipsum. Sed commodo, ligula vel maximus vestibulum, sem lectus sagittis purus, eu suscipit diam magna non mi. Pellentesque sed mi mauris. Vivamus sollicitudin ligula eleifend, viverra ligula viverra, sagittis arcu. Fusce vitae tellus lacinia, vulputate eros sit amet, tristique diam. Curabitur sit amet feugiat tortor.</p>
            
-                <div class="Register-Now">
+                <div class={MainCSS.RegisterNow}>
                     <p>Misyonumuzda bize destek olmak için hemen kayıt olun!</p>
                     <button class="btn btn-success"> Kayıt Ol</button>
                 </div>
             </div>
             
 
-            <div class="Search-Bar">
-                <form  class="bar">
-                    <input class="bar-field" type="search" name="search" pattern=".*\S.*" required autocomplete="off"/>
-                    <button class="search-btn" type="submit">
+            <div class={MainCSS.SearchBar}>
+                <form  class={MainCSS.bar}>
+                    <input class={MainCSS.BarField} type="search" name="search" pattern=".*\S.*" required autocomplete="off"/>
+                    <button class={MainCSS.searchbtn} type="submit">
                     <span>Ara</span>
                     </button>
                 </form>
-                </div>
+            </div>
 
 
-            <div class="Sort-And-Filter"> 
-                <div class="Sort-Container" >        
+            <div class={MainCSS.SortAndFilter}> 
+                <div class={MainCSS.SortContainer} >        
                         <Select  placeholder='Sırala' options={SortBy} />
 
                         <form class="radio-group">
@@ -111,7 +102,7 @@ Cras tristique odio et condimentum viverra. Praesent venenatis sed lacus quis rh
                         <Select  placeholder='Şehir Seç' options={Cities} />
                 </div>  
             </div>
-            <div class="Universities-Container">
+            <div class={MainCSS.UniversitiesContainer}>
                     <div class ="u1">1</div>
                     {/* Render SingleUniversity components for each university */}
                         {universities.map((university, index) => (
@@ -126,7 +117,7 @@ Cras tristique odio et condimentum viverra. Praesent venenatis sed lacus quis rh
             </div>
             
         </div>
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation for uniscore">
                 <ul class="pagination">
                     <li class="page-item">
                     <a onClick={handlePrevPage} class="page-link" href="#" aria-label="Previous">

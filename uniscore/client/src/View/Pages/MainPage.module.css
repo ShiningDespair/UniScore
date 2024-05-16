@@ -1,0 +1,144 @@
+@import url("https://unicons.iconscout.com/release/v2.1.9/css/unicons.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css");
+.blue{
+    background-color: blue;
+}
+
+.Layout{
+    display: grid;
+    grid-template-columns:  5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5%;
+    column-gap: 1.33%;
+    grid-template-rows: 100px 100px 150px 50px 100px 100px 100px 100px 100px 100px 100px 100px;
+    padding: 10px;
+    width: 60%;
+
+}
+
+.MainPageBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    font-weight: 300;
+    line-height: 1.7;
+    color: black;
+    top: 102px;
+    background-color: #EFEFEF;
+
+
+}
+
+.Welcome{
+    display: flex;
+    background-color: #CEECEE;
+    grid-column: 1/14;
+    grid-row: 1/4;
+
+    
+}
+
+.WelcomeText{
+    position: relative;
+    max-width: 50%; 
+    max-height: 30%;
+    overflow: hidden;
+    top:10%;
+    left: 20%;
+}
+
+.RegisterNow{
+    display: flex;
+    position: relative;
+    background-color: rgb(129, 141, 129);
+    overflow: hidden;
+    width: 30%;
+    height: 25%;
+    top: 70% ;
+    right: 49%;
+    border-radius: 12px;
+}
+.Welcome .Register-Now p{
+    max-width: 70%;
+    max-height:30%;
+    padding: 5px 5px 5px 5px;
+}
+
+.Welcome button{
+    position: relative;
+    max-width: 30%;
+    max-height: 30%;
+    top: 45%;
+}
+
+.imageOlacak{
+    position: relative;
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    top:10%;
+    left: 10%;
+}
+
+.SearchBar{
+    grid-column: 4/14;
+    grid-row: 5/6;
+    padding:2.5%;
+    
+}
+.SortAndFilter{
+    background-color: #CEECEE;
+    grid-column: 1/4;
+    grid-row: 6/14;
+    height: 60%;
+    padding: 20px;
+    
+}
+.SortContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 70%;
+}
+
+
+.radio-group{
+    display: flex;
+    flex-direction: column;
+}
+
+.UniversitiesContainer{
+    background-color: #CEECEE;
+    grid-column: 4/14;
+    grid-row: 6/14;
+
+    display: grid;
+    grid-template-columns:  40% 40% ;
+    grid-template-rows: 25% 25% 25%;
+    justify-content: center;
+    column-gap: 10%;
+    row-gap: 10%;
+    padding-top: 20px;
+    
+}
+.u1{
+    background-color: purple;
+
+}
+
+.u5{
+    background-color: pink;
+
+}
+
+.BarField{
+    width: 90%;
+    
+  
+}
+
+.searchbtn{
+    width: 10%;
+}
