@@ -2,7 +2,7 @@ import './MainPage.css';
 import SingleUniversity  from '../Components/SingleUniversity';
 import React, { useState,useEffect } from 'react';
 import Select from 'react-select';
-import University from '../../Controller/University';
+import University from '../../Helpers/University';
 
 function MainPage() {
 
