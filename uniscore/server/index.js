@@ -1,6 +1,26 @@
 const express = require('express');
 const app = express();
+const db = require('./models');
 
-app.listen(3001,() => {
-  console.log("Server running on port 3001 ");
-}); 
+app.use(express.json());
+
+// Routers
+const universityRouter = require('./routes/universities');
+app.use('/Universities', universityRouter);
+
+const rateRouter = require('./routes/rates');
+app.use('/Rates',rateRouter);
+
+const studentRouter = require('./routes/students');
+app.use('/Students',studentRouter);
+
+
+
+// Sequelize ile veritabanı senkronizasyonu
+db.sequelize.sync().then(() => {
+    app.listen(3001, () => {
+        console.log('Server running on port 3001');
+    });
+}).catch(error => {
+    console.error('Error syncing database:', error);
+});
