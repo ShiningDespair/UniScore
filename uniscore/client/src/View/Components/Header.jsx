@@ -1,10 +1,10 @@
-import './Header.css';
+import HeaderCSS from './Header.module.css';
 import {Link} from 'react-router-dom';
 
 function Header() {
   return (
-    <div className ="generalHeader">
-    <div className='headerBody'>
+    <div className ={HeaderCSS.generalHeader}>
+    <div className={HeaderCSS.headerBody}>
     <Link to ="/"k> <img src='Icons/home.png' alt='Home Icon' /></Link>
       <p>Hakkımızda</p>
       <h1>UniSkor</h1>

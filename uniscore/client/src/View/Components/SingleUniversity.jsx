@@ -1,5 +1,5 @@
 import './SingleUniversity.css'
-import University from '../../Controller/University';
+import University from '../../Helpers/University';
 //university.rank,university.city
 
 function SingleUniversity(props) {
