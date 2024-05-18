@@ -15,8 +15,10 @@ app.use('/Universities', universityRouter);
 const rateRouter = require('./routes/rates');
 app.use('/Rates',rateRouter);
 
-const studentRouter = require('./routes/students');
-app.use('/Students',studentRouter);
+const studentRouter = require('./routes/Students');
+app.use('/Students', studentRouter);
+
+
 
 
 

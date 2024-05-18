@@ -1,27 +1,84 @@
 const express = require('express');
 const router = express.Router();
-const { Student } = require('../models');
+const { Student, University } = require('../models');
+const bcrypt = require('bcrypt');
 
 router.get('/', async (req, res) => {
-    try{
-        const listOfStudents= await Student.findAll();
+    try {
+        const listOfStudents = await Student.findAll();
         res.json(listOfStudents);
-    }catch(error){
+    } catch (error) {
         console.error(error);
-        res.status(500).json({error : 'Internal Server Error'});
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.post('/', async (req, res) => {
+    try {
+        const { stu_pw, uni_id, stu_mail, ...studentData } = req.body;
+
+        // Girilen üniversiteyi veritabanında bul
+        const university = await University.findByPk(uni_id);
+        if (!university) {
+            return res.status(400).json({ error: 'University not found' });
+        }
+
+        const studentEmail = req.body.stu_mail;
+
+        // Üniversite mailini al DEĞİL DİREKT MAİL YAPISI VAR BİZDE
+        const universityEmailStructure = university.uni_email_structure;
+        console.log(studentEmail);
+        console.log(university.uni_email_structure);
+
+        // @ten sonrasını karşılaştırmak için
+        const regex = new RegExp(`@.*${universityEmailStructure}$`);
+                                    
+        // Öğrencinin e-posta adresinin domain kısmını alın ve regex ile karşılaştırın
+         if (!regex.test(studentEmail)) {
+            return res.status(400).json({ error: 'Student email domain does not match university email domain' });
+              
+         }
+
+           
+        
+
+        // Şifreyi hashle ve yeni öğrenci oluştur
+        const hashedPassword = await bcrypt.hash(stu_pw, 10);
+        const newStudent = await Student.create({ ...studentData, stu_pw: hashedPassword, uni_id, stu_mail });
+        res.status(201).json(newStudent);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error in Post' });
+    }
+
+});
+
+
+
+router.post('/login', async (req, res) => {
+    try {
+        const { stu_mail, stu_pw } = req.body;
+        const student = await Student.findOne({ where: { stu_mail } });
+
+        if (!student) {
+            return res.status(401).json({ error: 'Invalid email or password' });
+        }
+
+        const isPasswordValid = await bcrypt.compare(stu_pw, student.stu_pw);
+
+        if (!isPasswordValid) {
+            return res.status(401).json({ error: 'Invalid email or password' });
+        }
+
+        res.json({ message: 'Login successful', student: { id: student.stu_id, name: student.stu_name, surname: student.stu_surname, email: student.stu_mail } });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
 
-router.post('/', async (req, res) => {
-    try{
-        const studentData = req.body;
-        const newStudent = await Student.create(studentData);
-        res.status(201).json(newStudent);
-      }
-      catch(error){
-          res.status(500).json({error :'Internal Server Error in Post'});
-     }
-});
+
+
 
 module.exports = router;
