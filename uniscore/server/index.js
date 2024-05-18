@@ -9,10 +9,10 @@ app.use(cors());
 
 
 // Routers
-const universityRouter = require('./routes/universities');
+const universityRouter = require('./routes/Universities');
 app.use('/Universities', universityRouter);
 
-const rateRouter = require('./routes/rates');
+const rateRouter = require('./routes/Rates');
 app.use('/Rates',rateRouter);
 
 const studentRouter = require('./routes/Students');

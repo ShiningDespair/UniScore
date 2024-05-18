@@ -8,11 +8,11 @@ function SingleUniversity(props) {
 
     const handleRouteClick = () => {
         history.push({
-          pathname: `/UniversityPage/${university.uni_name}`,
-          state: { uniId: university.uni_id }
+          pathname: `/UniversityPage/${university.uni_id}`,
+          
         });
       };
-
+      
     function toCapitalCase(text) {
         return text
             .toLowerCase()
@@ -44,7 +44,7 @@ function SingleUniversity(props) {
 
     // Fill array with full stars
     for (let i = 0; i < fullStars; i++) {
-        stars.push(<span key={i} className="fa fa-star checked"></span>);
+        stars.push(<span key={i} className="fa fa-star Checked"></span>);
     }
 
     // Add half star if applicable

@@ -13,6 +13,18 @@ router.get('/', async (req, res) => {
     
 });
 
+router.get('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const rates = await Rate.findAll({WHERE: {uni_id: id}});
+        res.json(rates);
+    }  catch (error) {
+        console.error(error); // Hatanın ayrıntılarını konsola yazdırın
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+    
+});
+
 
 router.post('/', async (req, res) => {
     try{

@@ -1,51 +1,63 @@
 import UniPCSS from './UniversityPage.module.css'
 import Rate from '../Components/Rate';
-import {useParams, useLocation} from 'react-router-dom';
-import {useEffect} from 'react';
+import {useParams} from 'react-router-dom';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
 
-function UniversityPage(props){
-    const university = props.university;
-    const { uniName } = useParams();
-    const location = useLocation();
-    const uniId = location.state?.uniId;
-    
+function UniversityPage(){
+    let { id } = useParams();
+    const[university, setUniversity] = useState({
+        uni_rate: 0,
+        uni_rate_count: 0
+    });
+        
     useEffect(() => {
-        if (uniId) {
-          fetchUniversityDetails(uniId);
-        } else {
-          // Handle the case where uniId is not available
-          console.error('University ID is missing');
-        }
-      }, [uniId]);
-    
-      const fetchUniversityDetails = async (id) => {
-        try {
-          // Replace this with your actual API call
-          const response = await axios.get(`http://localhost:3001/UniversityPage/${id}`);
-          const data = await response.json();
-          console.log(data);
-        } catch (error) {
-          console.error('Error fetching university details:', error);
-        }
-      };
+             axios.get(`http://localhost:3001/universities/byId/${id}`).then((response)=>{
+                console.log(response);
+                setUniversity(response.data);
+            })               
+        
+    },[]);
+     // Calculate average rating
+     const averageRating = university.uni_rate / university.uni_rate_count;
+
+     // Calculate number of full stars, half stars, and empty stars
+     const fullStars = Math.floor(averageRating);
+     const hasHalfStar = averageRating % 1 >= 0.3 && averageRating % 1 <= 0.7;
+ 
+     // Array to store star elements
+     const stars = [];
+ 
+     // Fill array with full stars
+     for (let i = 0; i < fullStars; i++) {
+         stars.push(<span key={i} className="fa fa-star checked"></span>);
+     }
+ 
+     // Add half star if applicable
+     if (hasHalfStar) {
+         stars.push(<span key="half" className="fa fa-star-half-alt checked"></span>);
+     }
+ 
+     // Fill remaining array with empty stars
+     for (let i = stars.length; i < 5; i++) {
+         stars.push(<span key={stars.length} className="fa fa-star"></span>);  // Adjusted key
+     }
 
     return(
         <div class ={UniPCSS.UniPageBody}>
             <div class={UniPCSS.UniDetailsContainer}>
-                <h1 class={UniPCSS.UniTitle}> {uniName} </h1>
-                <p class={UniPCSS.Description}>University desciption</p>
+                <h1 class={UniPCSS.UniTitle}> {university.uni_name} </h1>
+                <p class={UniPCSS.Description}>{university.uni_name}</p>
                 {/*properties*/}
-                <div> <p>Email: </p>  </div>
+                <div> <p>Email: {university.uni_email} </p>  </div>
                 <div> <p>Telefon Numarası: </p></div>
-                <div> <p>Şehir:  </p></div>
-                <div> <p>Rektör: </p></div>
-                <div> <p>Sıralama </p></div>
-                <div> RATE</div>
+                <div> <p>Şehir: {university.uni_province} </p></div>
+                <div> <p>Rektör: {university.uni_rector_name +" " + university.uni_rector_surname}</p></div>
+                <div> <p>Sıralama: TO BE ADDED </p></div>
+                <div> {stars} </div>
             </div>
 
             <div class={UniPCSS.AddComment}>
-                {/* <p><Rate/></p> */}
                 <form class={UniPCSS.FormGroup}>
                     <h3>Yorum Ekle</h3>
                     <div class={UniPCSS.Rate}> <Rate/> </div>

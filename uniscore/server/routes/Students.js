@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { Student, University } = require('../models');
 const bcrypt = require('bcrypt');
+const {sign} = require('jsonwebtoken')
+
+// token süresi değişkeni
+const TOKEN_EXPIRY = '5m';
 
 router.get('/', async (req, res) => {
     try {
@@ -70,7 +74,9 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
 
-        res.json({ message: 'Login successful', student: { id: student.stu_id, name: student.stu_name, surname: student.stu_surname, email: student.stu_mail } });
+        const accessToken = sign({ stu_mail: student.stu_mail, stu_id: student.stu_id }, 'yourSecretKey', { expiresIn: TOKEN_EXPIRY });
+        res.json({ message: 'Login successful', token: accessToken, student: { id: student.stu_id, name: student.stu_name, surname: student.stu_surname, email: student.stu_mail } });
+        
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });

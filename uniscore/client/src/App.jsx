@@ -23,7 +23,7 @@ function App() {
             <Route path='/Registiration'>
               <RegistirationPage/>
             </Route>
-            <Route path='/UniversityPage/:uniName'>
+            <Route path='/UniversityPage/:id'>
               <UniversityPage/>
             </Route>
             

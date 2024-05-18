@@ -44,13 +44,13 @@ function RegistirationPage() {
         surName: Yup.string().max(50, "Soyisim en fazla 50 karakter olabilir").required("Soyisim boş bırakılamaz"),
         uniMail: Yup.string().max(100, "Geçerli bir mail giriniz").required("Üniversitenizin size atadığı öğrenci mailini giriniz"),
         phoneNumber: Yup.string().max(14, "Telefon Numaranızı 05XX XXX XX XX şeklinde girebilirsiniz"),
-        password: Yup.string().min(8).required("Şifre giriniz"),
+        password: Yup.string().min(8,"Şifre en az 8 haneli olmalıdır").required("Şifre giriniz"),
         selectedUniversity: Yup.object().nullable().required('Lütfen bir üniversite seçiniz'),
     });
 
     const loginValidationSchema = Yup.object().shape({
         uniMail: Yup.string().max(100, "Geçerli bir mail giriniz").required("Üniversitenizin size atadığı öğrenci mailini giriniz"),
-        password: Yup.string().min(8).required("Şifre giriniz"),
+        password: Yup.string().min(8,"").required("Şifre giriniz"),
     });
 
     return (
@@ -76,7 +76,7 @@ function RegistirationPage() {
                                                                 <i className="input-icon uil uil-at"></i>
                                                             </div>
                                                             <div className="form-group mt-2">
-                                                                <Field className="form-style" name="password" placeholder="Şifre" />
+                                                                <Field type="password" className="form-style" name="password" placeholder="Şifre" />
                                                                 <i className="input-icon uil uil-lock-alt"></i>
                                                             </div>
                                                             <button type="submit" className="btn mt-4">Login</button>
@@ -123,7 +123,8 @@ function RegistirationPage() {
                                                                     
                                                                 </div>
                                                                 <div className="form-group mt-2">
-                                                                    <Field className="form-style" name="password" placeholder="Şifre" />
+                                                                    
+                                                                    <Field type="password" className="form-style" name="password" placeholder="Şifre" />
                                                                     <i className="input-icon uil uil-lock-alt"></i>
                                                                 </div>
 																<label>

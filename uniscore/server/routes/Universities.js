@@ -13,6 +13,18 @@ router.get('/', async (req, res) => {
     
 });
 
+router.get('/byId/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const university = await University.findByPk(id);
+        res.json(university);
+    }  catch (error) {
+        console.error(error); // Hatanın ayrıntılarını konsola yazdırın
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+    
+});
+
 router.post('/', async (req, res) => {
     try {
         const universityData = req.body;
