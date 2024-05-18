@@ -1,15 +1,27 @@
 import './Rate.css'
+import {useState, useEffect} from 'react'
 
 function Rate() {
+	const [rating, setRating] = useState(0);
+
+	const handleRatingChange = (event) => {
+        setRating(parseInt(event.target.value));
+
+    };
+
+	useEffect(() => {
+        console.log(rating); // This will log the updated rating whenever it changes
+    }, [rating]); // Run this effect whenever the rating state changes
+
     return(
-        <div class="container">
+        <div class="RateRoot RateContainer">
 <form class="rating">
 		<div class="rating__stars">
-			<input id="rating-1" class="rating__input rating__input-1" type="radio" name="rating" value="1"/>
-			<input id="rating-2" class="rating__input rating__input-2" type="radio" name="rating" value="2"/>
-			<input id="rating-3" class="rating__input rating__input-3" type="radio" name="rating" value="3"/>
-			<input id="rating-4" class="rating__input rating__input-4" type="radio" name="rating" value="4"/>
-			<input id="rating-5" class="rating__input rating__input-5" type="radio" name="rating" value="5"/>
+			<input id="rating-1" class="rating__input rating__input-1" type="radio" name="rating" value="1" onChange={handleRatingChange}/>
+			<input id="rating-2" class="rating__input rating__input-2" type="radio" name="rating" value="2" onChange={handleRatingChange}/>
+			<input id="rating-3" class="rating__input rating__input-3" type="radio" name="rating" value="3" onChange={handleRatingChange}/>
+			<input id="rating-4" class="rating__input rating__input-4" type="radio" name="rating" value="4" onChange={handleRatingChange}/>
+			<input id="rating-5" class="rating__input rating__input-5" type="radio" name="rating" value="5" onChange={handleRatingChange}/>
 			<label class="rating__label" for="rating-1">
 				<svg class="rating__star" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
 					<g transform="translate(16,16)">
@@ -29,7 +41,7 @@ function Rate() {
 						</g>
 					</g>
 				</svg>
-				<span class="rating__sr">1 star—Terrible</span>
+				<span class="rating__sr">1 star—Berbat</span>
 			</label>
 			<label class="rating__label" for="rating-2">
 				<svg class="rating__star" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
@@ -50,7 +62,7 @@ function Rate() {
 						</g>
 					</g>
 				</svg>
-				<span class="rating__sr">2 stars—Bad</span>
+				<span class="rating__sr">2 stars—Kötü</span>
 			</label>
 			<label class="rating__label" for="rating-3">
 				<svg class="rating__star" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
@@ -71,7 +83,7 @@ function Rate() {
 						</g>
 					</g>
 				</svg>
-				<span class="rating__sr">3 stars—OK</span>
+				<span class="rating__sr">3 stars—Fena Değil</span>
 			</label>
 			<label class="rating__label" for="rating-4">
 				<svg class="rating__star" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
@@ -92,7 +104,7 @@ function Rate() {
 						</g>
 					</g>
 				</svg>
-				<span class="rating__sr">4 stars—Good</span>
+				<span class="rating__sr">4 stars—İyi</span>
 			</label>
 			<label class="rating__label" for="rating-5">
 				<svg class="rating__star" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
@@ -113,13 +125,13 @@ function Rate() {
 						</g>
 					</g>
 				</svg>
-				<span class="rating__sr">5 stars—Excellent</span>
+				<span class="rating__sr">5 stars—MUHTEŞEM</span>
 			</label>
-			<p class="rating__display" data-rating="1" hidden>Terrible</p>
-			<p class="rating__display" data-rating="2" hidden>Bad</p>
-			<p class="rating__display" data-rating="3" hidden>OK</p>
-			<p class="rating__display" data-rating="4" hidden>Good</p>
-			<p class="rating__display" data-rating="5" hidden>Excellent</p>
+			<p class="rating__display" data-rating="1" hidden>Berbat</p>
+			<p class="rating__display" data-rating="2" hidden>Kötü</p>
+			<p class="rating__display" data-rating="3" hidden>Fena Değil</p>
+			<p class="rating__display" data-rating="4" hidden>İyi</p>
+			<p class="rating__display" data-rating="5" hidden>MUHTEŞEM</p>
 		</div>
 	</form>
         </div>
