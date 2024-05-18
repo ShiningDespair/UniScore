@@ -3,7 +3,7 @@ import Header from'./View/Components/Header';
 import Footer from './View/Components/Footer';
 import RegistirationPage from './View/Pages/RegistirationPage';
 import MainPage from './View/Pages/MainPage';
-// import UniversityPage from './View/Pages/UniversityPage';
+import UniversityPage from './View/Pages/UniversityPage';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 
 
@@ -23,9 +23,10 @@ function App() {
             <Route path='/Registiration'>
               <RegistirationPage/>
             </Route>
-            {/* <Route path='/UniversityPage'>
+            <Route path='/UniversityPage/:uniName'>
               <UniversityPage/>
-            </Route> */}
+            </Route>
+            
           </Switch>
 
         </div>

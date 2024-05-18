@@ -1,0 +1,185 @@
+.UniDetailsContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 300px;
+    height: 1200px;
+    background-color: #2C2E37;
+    border: 2px solid rgb(155, 171, 223);
+    border-radius: 10px;
+    padding: 100px;
+    top:100px;
+
+
+}
+
+.UniTitle{
+    display: flex;
+    align-items:baseline;
+    justify-content: center;
+    grid-column: 1/3;
+    grid-row: 1/3;
+}
+
+.Description{
+    display: flex;
+    align-items:baseline;
+    justify-content: baseline;
+    grid-column: 1/3;
+    grid-row: 3/5;
+}
+
+.UniPageBody{
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #9BABDE;
+    top: 15 2px;
+    background-color:  #1F2029;
+}
+.AddComment{
+    display: grid;
+    grid-template-rows: 0.1fr 1fr 3fr 0.1fr;
+    height: 400px;
+    background-color: white;
+    width: 760px;
+    padding: 10px;
+}
+
+.Rate{
+    display: flex;
+    align-items:baseline;
+    justify-content: end;
+    
+}
+
+.CommentField{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items:top;
+    justify-content: start;
+    border: 4px solid rgb(155, 171, 223);
+    
+}
+
+.RateList{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.btnBody{
+    background: linear-gradient(to right, #000000, #1d04ab);
+
+  }
+  .btn {
+    position: relative;
+    display: inline-block;
+    padding: 20px 30px;
+    color: #b79726;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px;
+    background-color: #FF6F61; /* Default background color */
+    background-image: linear-gradient(to right, #000000, #1d04ab); /* Gradient background */
+    border: none;
+    cursor: pointer;
+}
+
+.btn:not(:hover) {
+    background-color: #FF0000; /* Red background color when not hovered */
+}
+
+.btn:hover {
+    background: #f49803;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #f4c803,
+                0 0 25px #bd9d0b,
+                0 0 50px #f4e403,
+                0 0 100px #d5cf1e;
+}
+
+.btn span {
+    position: absolute;
+    display: block;
+}
+  .btn span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #f4c003);
+    animation: btn-anim1 1s linear infinite;
+  }
+  @keyframes btn-anim1 {
+    0% {
+      left: -100%;
+    }
+    50%,100% {
+      left: 100%;
+    }
+  }
+  .btn span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #f4bc03);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+  }
+  @keyframes btn-anim2 {
+    0% {
+      top: -100%;
+    }
+    50%,100% {
+      top: 100%;
+    }
+  }
+  .btn span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #f4dc03);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s
+  }
+  @keyframes btn-anim3 {
+    0% {
+      right: -100%;
+    }
+    50%,100% {
+      right: 100%;
+    }
+  }
+  .btn span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #f4b003);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s
+  }
+  @keyframes btn-anim4 {
+    0% {
+      bottom: -100%;
+    }
+    50%,100% {
+      bottom: 100%;
+    }
+  }
+  

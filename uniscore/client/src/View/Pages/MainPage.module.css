@@ -26,16 +26,20 @@
     line-height: 1.7;
     color: black;
     top: 102px;
-    background-color: #EFEFEF;
+    background-color: #1F2029;
+    color:#9BABDE;
+    
 
 
 }
 
 .Welcome{
     display: flex;
-    background-color: #CEECEE;
+    background-color: #2C2E37;
     grid-column: 1/14;
     grid-row: 1/4;
+    border: 2px solid rgb(155, 171, 223);
+    border-radius: 10px;
 
     
 }
@@ -47,12 +51,15 @@
     overflow: hidden;
     top:10%;
     left: 20%;
+    
 }
 
 .RegisterNow{
     display: flex;
     position: relative;
-    background-color: rgb(129, 141, 129);
+    background-color: #2C2E37;
+    border: 2px solid rgb(155, 171, 223);
+    padding: 10px;
     overflow: hidden;
     width: 30%;
     height: 25%;
@@ -67,10 +74,12 @@
 }
 
 .Welcome button{
-    position: relative;
-    max-width: 30%;
-    max-height: 30%;
-    top: 45%;
+    width: 200px; /* Example width */
+    height: 50px; /* Example height */
+    border: 1px solid black;
+    overflow: hidden; /* Hide overflowed text */
+    text-overflow: ellipsis; /* Add ellipsis to overflowed text */
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .imageOlacak{
@@ -89,7 +98,9 @@
     
 }
 .SortAndFilter{
-    background-color: #CEECEE;
+    border: 2px solid rgb(155, 171, 223);
+    border-radius: 10px;
+    background-color: #2C2E37;
     grid-column: 1/4;
     grid-row: 6/14;
     height: 60%;
@@ -110,10 +121,9 @@
 }
 
 .UniversitiesContainer{
-    background-color: #CEECEE;
+    background-color: #2C2E37;
     grid-column: 4/14;
     grid-row: 6/14;
-
     display: grid;
     grid-template-columns:  40% 40% ;
     grid-template-rows: 25% 25% 25%;
@@ -121,7 +131,8 @@
     column-gap: 10%;
     row-gap: 10%;
     padding-top: 20px;
-    
+    border: 2px solid rgb(155, 171, 223);
+    border-radius: 10px;
 }
 .u1{
     background-color: purple;
@@ -133,12 +144,33 @@
 
 }
 
-.BarField{
-    width: 90%;
+.SearchBar {
+    grid-column: 4 / 14;
+    grid-row: 5 / 6;
+    padding: 2.5%;
     
-  
 }
 
-.searchbtn{
-    width: 10%;
+.SearchBar form {
+    display: flex;
+    align-items: center; /* Align items vertically */
 }
+
+.BarField {
+    flex: 1; /* Take up remaining space */
+    padding: 8px; /* Add padding for better appearance */
+    border: 1px solid #ccc; /* Add a border for clarity */
+    border-radius: 4px; /* Add border radius for rounded corners */
+}
+
+.searchbtn {
+    margin-left: 8px; /* Add some spacing between the input field and the button */
+    padding: 8px; /* Add padding for better appearance */
+    background-color: #9BABDE; /* Set button background color */
+    color: #fff; /* Set button text color */
+    border: none; /* Remove button border */
+    border-radius: 4px; /* Add border radius for rounded corners */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    width:100px;
+}
+
