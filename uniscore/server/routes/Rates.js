@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {Rate} = require('../models');
+const {validateToken} = require('../middlewares/AuthMiddleware')
 
 router.get('/', async (req, res) => {
     try{ const listOfRates = await Rate.findAll();
@@ -26,7 +27,7 @@ router.get('/:id', async (req, res) => {
 });
 
 
-router.post('/', async (req, res) => {
+router.post('/',validateToken, async (req, res) => {
     try{
         const rateData = req.body;
         const newRate = await Rate.create(rateData);
