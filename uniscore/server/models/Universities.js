@@ -15,8 +15,11 @@ module.exports = (sequelize, DataTypes) => {
       uni_rector_surname: DataTypes.STRING,
       uni_email_structure: DataTypes.STRING,
       uni_rate: DataTypes.FLOAT,
+      uni_rate_count: DataTypes.INTEGER,
       uni_comment_count: DataTypes.INTEGER,
-      uni_yokatlas_link: DataTypes.STRING
+      uni_yokatlas_link: DataTypes.STRING,
+      uni_logo: DataTypes.STRING,
+      uni_wp: DataTypes.STRING
     }, {
       tableName: 'universities',
       timestamps: false
