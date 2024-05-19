@@ -9,7 +9,7 @@ console.log('JWT_SECRET:', process.env.JWT_SECRET); //çalışıyor mu kontrol
 
 
 // token süresi değişkeni
-const TOKEN_EXPIRY = '5m';
+const TOKEN_EXPIRY = '5000m';
 
 router.get('/', async (req, res) => {
     try {

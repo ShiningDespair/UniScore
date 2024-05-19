@@ -15,8 +15,8 @@ const validateToken = (req, res, next) => {
         }
     } catch (err) {
         return res.json({ error: err });
-        console.log('JWT Token:', accessToken); // JWT token'ı konsola yazdır
     }
 };
+
 
 module.exports = { validateToken };

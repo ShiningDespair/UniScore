@@ -41,7 +41,7 @@ function UniversityPage() {
                 console.log("Rate added successfully:", response.data);
                 setRates([...rateList]); // Assuming response.data contains the new rate data
             }).catch(error => {
-                console.error("Error adding rate:", error);
+                alert("Sadece kendi üniversitenize 1 adet değerlendirme ekleyebilirsiniz")
             });
     };
 
