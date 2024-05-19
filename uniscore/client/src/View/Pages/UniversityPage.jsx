@@ -27,12 +27,21 @@ function UniversityPage() {
             rate_amount: rating,
             com: rateComment,
             uni_id: id
-        }).then(response => {
-            setRates([...rateList])
-        }).catch(error => {
-            // Handle error
-            console.error(error);
-        });
+        },
+        {
+            headers: {
+                accessToken: sessionStorage.getItem("accessToken")
+            }
+        }
+        ).then(response => {
+            if(response.data.error) {
+                alert("Lütfen giriş yapınız ");
+            }
+                console.log("Rate added successfully:", response.data);
+                setRates([...rateList]); // Assuming response.data contains the new rate data
+            }).catch(error => {
+                console.error("Error adding rate:", error);
+            });
     };
 
     const handleNextPage = (event) => {

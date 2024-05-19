@@ -44,9 +44,10 @@ function RegistirationPage() {
         axios.post("http://localhost:3001/students/login", values)
             .then((response) => {
                 console.log(response.data);  // Log the response data
-                sessionStorage.setItem("accessToken",response.data)
+                if(!response.data.error) {
+                    sessionStorage.setItem("accessToken",response.data.token)
+                }
                 setLoginError('');  // Clear any previous error message
-                // Handle the successful login response here (e.g., saving tokens, redirecting, etc.)
                 const uniId = response.data.student.uni_id; // Assuming the backend API returns uni_id
                 history.push(`/UniversityPage/${uniId}`);
 
@@ -54,6 +55,7 @@ function RegistirationPage() {
             .catch(error => {
                 console.error("There was an error logging in!", error);
                 alert("Invalid email or password");
+                
             });
     };
 
