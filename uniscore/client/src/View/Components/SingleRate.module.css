@@ -1,0 +1,17 @@
+.RateBody{
+    border: 1px solid rgb(155, 171, 223);
+    padding: 30px;
+    display:grid;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.FirstRow{
+    display: flex;
+    flex-direction: row;
+}
+
+.LikeDislike{
+    margin-left: auto;
+    display: flex;
+    gap: 20px
+}

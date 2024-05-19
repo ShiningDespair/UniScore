@@ -75,7 +75,7 @@ router.post('/login', async (req, res) => {
         }
 
         const accessToken = sign({ stu_mail: student.stu_mail, stu_id: student.stu_id }, 'yourSecretKey', { expiresIn: TOKEN_EXPIRY });
-        res.json({ message: 'Login successful', token: accessToken, student: { id: student.stu_id, name: student.stu_name, surname: student.stu_surname, email: student.stu_mail } });
+        res.json({ message: 'Login successful', token: accessToken, student: { id: student.stu_id, name: student.stu_name, surname: student.stu_surname, email: student.stu_mail,  uni_id: student.uni_id } });
         
     } catch (error) {
         console.error(error);

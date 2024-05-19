@@ -26,7 +26,8 @@ img{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #587F82;
-    color: rgb(4, 38, 44);
+    background-color: #9BABDE;
+    color:#2C2E37;
+    text-decoration: none;
     
   }

@@ -17,14 +17,14 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const rates = await Rate.findAll({WHERE: {uni_id: id}});
+        const rates = await Rate.findAll({ where: { uni_id: id } }); 
         res.json(rates);
-    }  catch (error) {
-        console.error(error); // Hatanın ayrıntılarını konsola yazdırın
+    } catch (error) {
+        console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
-    
 });
+
 
 
 router.post('/',validateToken, async (req, res) => {

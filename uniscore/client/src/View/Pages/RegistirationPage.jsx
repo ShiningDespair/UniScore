@@ -1,18 +1,60 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';  // Import useHistory
 import './RegistirationPage.css';
 
 function RegistirationPage() {
+    const [universities, setUniversities] = useState([]);
+    const [loginError, setLoginError] = useState('');  // Error state for login
+    const history = useHistory();  // Create history object
+
+    useEffect(() => {
+        axios.get("http://localhost:3001/universities")
+            .then(response => {
+                const universityOptions = response.data.map(university => ({
+                    value: university.uni_id,
+                    label: university.uni_name
+                }));
+                setUniversities(universityOptions);
+            })
+            .catch(error => {
+                console.error("There was an error fetching the universities!", error);
+            });
+    }, []);
+
     const handleClickRegister = (values) => {
-        // Register Logic will be implemented here
-        console.log("Register data:", values);
+        const registerData = {
+            ...values,
+            uni_id: values.selectedUniversity.value // `uni_id` olarak gönderiliyor
+        };
+        axios.post("http://localhost:3001/students", registerData)
+            .then(() => {
+                console.log(registerData);
+                history.push(`/UniversityPage/${registerData.uni_id}`);
+            })
+            .catch(error => {
+                console.error("There was an error registering!", error);
+            });
     };
 
     const handleClickLogIn = (values) => {
-        // Login Logic will be implemented here
-        console.log("Log In data:", values);
+        axios.post("http://localhost:3001/students/login", values)
+            .then((response) => {
+                console.log(response.data);  // Log the response data
+                sessionStorage.setItem("accessToken",response.data)
+                setLoginError('');  // Clear any previous error message
+                // Handle the successful login response here (e.g., saving tokens, redirecting, etc.)
+                const uniId = response.data.student.uni_id; // Assuming the backend API returns uni_id
+                history.push(`/UniversityPage/${uniId}`);
+
+            })
+            .catch(error => {
+                console.error("There was an error logging in!", error);
+                setLoginError("Invalid email or password");  // Set the error message
+            });
     };
 
     // eslint-disable-next-line no-unused-vars
@@ -20,37 +62,32 @@ function RegistirationPage() {
         // Detaylıca bakılacak
     };
 
-    const Universities = [
-        { value: 'A', label: 'İAÜ' },
-        { value: 'B', label: 'OMÜ' },
-    ];
-
     const registerInitialValues = {
-        name: "",
-        surName: "",
-        uniMail: "",
-        phoneNumber: "",
-        password: "",
+        stu_name: "",
+        stu_surname: "",
+        stu_mail: "",
+        stu_phone: "",
+        stu_pw: "",
         selectedUniversity: null,
     };
 
     const loginInitialValues = {
-        uniMail: "",
-        password: "",
+        stu_mail: "",
+        stu_pw: "",
     };
 
     const registerValidationSchema = Yup.object().shape({
-        name: Yup.string().max(50, "İsim en fazla 50 karakter olabilir").required("İsim boş bırakılamaz"),
-        surName: Yup.string().max(50, "Soyisim en fazla 50 karakter olabilir").required("Soyisim boş bırakılamaz"),
-        uniMail: Yup.string().max(100, "Geçerli bir mail giriniz").required("Üniversitenizin size atadığı öğrenci mailini giriniz"),
-        phoneNumber: Yup.string().max(14, "Telefon Numaranızı 05XX XXX XX XX şeklinde girebilirsiniz"),
-        password: Yup.string().min(8,"Şifre en az 8 haneli olmalıdır").required("Şifre giriniz"),
+        stu_name: Yup.string().max(50, "İsim en fazla 50 karakter olabilir").required("İsim boş bırakılamaz"),
+        stu_surname: Yup.string().max(50, "Soyisim en fazla 50 karakter olabilir").required("Soyisim boş bırakılamaz"),
+        stu_mail: Yup.string().max(100, "Geçerli bir mail giriniz").required("Üniversitenizin size atadığı öğrenci mailini giriniz"),
+        stu_phone: Yup.string().max(14, "Telefon Numaranızı 05XX XXX XX XX şeklinde girebilirsiniz"),
+        stu_pw: Yup.string().min(8, "Şifre en az 8 haneli olmalıdır").required("Şifre giriniz"),
         selectedUniversity: Yup.object().nullable().required('Lütfen bir üniversite seçiniz'),
     });
 
     const loginValidationSchema = Yup.object().shape({
-        uniMail: Yup.string().max(100, "Geçerli bir mail giriniz").required("Üniversitenizin size atadığı öğrenci mailini giriniz"),
-        password: Yup.string().min(8,"").required("Şifre giriniz"),
+        stu_mail: Yup.string().max(100, "Geçerli bir mail giriniz").required("Üniversitenizin size atadığı öğrenci mailini giriniz"),
+        stu_pw: Yup.string().min(8, "").required("Şifre giriniz"),
     });
 
     return (
@@ -72,19 +109,20 @@ function RegistirationPage() {
                                                     <Formik initialValues={loginInitialValues} onSubmit={handleClickLogIn} validationSchema={loginValidationSchema}>
                                                         <Form>
                                                             <div className="form-group">
-                                                                <Field className="form-style" name="uniMail" placeholder="Okul Maili" />
+                                                                <Field className="form-style" name="stu_mail" placeholder="Okul Maili" />
                                                                 <i className="input-icon uil uil-at"></i>
                                                             </div>
                                                             <div className="form-group mt-2">
-                                                                <Field type="password" className="form-style" name="password" placeholder="Şifre" />
+                                                                <Field type="password" className="form-style" name="stu_pw" placeholder="Şifre" />
                                                                 <i className="input-icon uil uil-lock-alt"></i>
                                                             </div>
                                                             <button type="submit" className="btn mt-4">Login</button>
                                                             <br /><br />
+                                                            {loginError && <div className="error">{loginError}</div>} {/* Display the error message */}
                                                             <div className="error">
-                                                                <ErrorMessage name="uniMail" component="span" />
+                                                                <ErrorMessage name="stu_mail" component="span" />
                                                                 <br />
-                                                                <ErrorMessage name="password" component="span" />
+                                                                <ErrorMessage name="stu_pw" component="span" />
                                                             </div>
                                                         </Form>
                                                     </Formik>
@@ -99,48 +137,45 @@ function RegistirationPage() {
                                                         {({ setFieldValue, setFieldTouched }) => (
                                                             <Form className="form-group">
                                                                 <div className="form-group">
-                                                                    <Field className="form-style" name="name" placeholder="İsim" />
+                                                                    <Field className="form-style" name="stu_name" placeholder="İsim" />
                                                                     <i className="input-icon uil uil-user"></i>
-                                                                    <Field className="form-style" name="surName" placeholder="Soyisim" />
+                                                                    <Field className="form-style" name="stu_surname" placeholder="Soyisim" />
                                                                 </div>
                                                                 <div className="form-group mt-2">
-                                                                    <Field className="form-style" name="phoneNumber" placeholder="Telefon Numarası" />
+                                                                    <Field className="form-style" name="stu_phone" placeholder="Telefon Numarası" />
                                                                     <i className="input-icon uil uil-phone"></i>
                                                                 </div>
                                                                 <div className="form-group mt-2">
-                                                                    <Field className="form-style" name="uniMail" placeholder="Okul Maili" />
+                                                                    <Field className="form-style" name="stu_mail" placeholder="Okul Maili" />
                                                                     <i className="input-icon uil uil-at"></i>
                                                                 </div>
                                                                 <div className="form-group mt-2">
-                                                                    <Select 
-                                                                        
+                                                                    <Select
                                                                         placeholder="Üniversite Seç"
-                                                                        options={Universities}
+                                                                        options={universities}
                                                                         name="selectedUniversity"
                                                                         onChange={(value) => setFieldValue('selectedUniversity', value)}
                                                                         onBlur={() => setFieldTouched('selectedUniversity', true)}
                                                                     />
-                                                                    
                                                                 </div>
                                                                 <div className="form-group mt-2">
-                                                                    
-                                                                    <Field type="password" className="form-style" name="password" placeholder="Şifre" />
+                                                                    <Field type="password" className="form-style" name="stu_pw" placeholder="Şifre" />
                                                                     <i className="input-icon uil uil-lock-alt"></i>
                                                                 </div>
-																<label>
-                                                                        <Field type="checkbox" name="promotionalCommunications" />
-                                                                        Promosyon Amaçlı İletişimleri Kabul Ediyor Musunuz?
-                                                                    </label>
+                                                                <label>
+                                                                    <Field type="checkbox" name="promotionalCommunications" />
+                                                                    Promosyon Amaçlı İletişimleri Kabul Ediyor Musunuz?
+                                                                </label>
                                                                 <button type="submit" className="btn mt-4">Register</button>
                                                                 <br /><br /><br />
                                                                 <div className="error">
-                                                                    <ErrorMessage name="name" component="span" />
+                                                                    <ErrorMessage name="stu_name" component="span" />
                                                                     <br />
-                                                                    <ErrorMessage name="surName" component="span" />
+                                                                    <ErrorMessage name="stu_surname" component="span" />
                                                                     <br />
-                                                                    <ErrorMessage name="uniMail" component="span" />
+                                                                    <ErrorMessage name="stu_mail" component="span" />
                                                                     <br />
-                                                                    <ErrorMessage name="phoneNumber" component="span" />
+                                                                    <ErrorMessage name="stu_phone" component="span" />
                                                                     <br />
                                                                     <ErrorMessage name="selectedUniversity" component="span" />
                                                                 </div>

@@ -73,7 +73,15 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    background-color: #2C2E37;
+    width: 30%;
+    padding: 30px;
+    border: 4px solid rgb(155, 171, 223);
+    bottom: 100px;
+    gap:25px;
 }
+
+
 
 .btnBody{
     background: linear-gradient(to right, #000000, #1d04ab);

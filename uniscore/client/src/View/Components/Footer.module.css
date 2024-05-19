@@ -17,7 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #587F82;
+    background-color: #9BABDE;
     color: rgb(4, 38, 44);
     height: 200px;
     bottom: 0;
@@ -27,6 +27,10 @@ body {
     min-height: 100vh;
 }
 
-h2{
+.footerH1{
+    color:#2C2E37;
+}
+.footerH2{
     text-decoration: underline;
+    color:#2C2E37;
 }

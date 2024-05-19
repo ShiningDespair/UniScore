@@ -6,12 +6,12 @@ function Header() {
     <div className ={HeaderCSS.generalHeader}>
     <div className={HeaderCSS.headerBody}>
     <Link to ="/"k> <img src='Icons/home.png' alt='Home Icon' /></Link>
-      <p>Hakkımızda</p>
-      <h1>UniSkor</h1>
-      <p>İletişim</p>
+      <h2>Hakkımızda</h2>
+      <h2>UniSkor</h2>
+      <h2 >İletişim</h2>
      <Link to ="/Registiration"> <img src='Icons/account.png' alt='Account Icon'/></Link>
 
-    </div>
+    </div>  
     </div>
   );    
 }

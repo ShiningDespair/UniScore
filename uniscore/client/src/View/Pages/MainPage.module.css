@@ -101,6 +101,7 @@
     border: 2px solid rgb(155, 171, 223);
     border-radius: 10px;
     background-color: #2C2E37;
+    color: #9BABDE;
     grid-column: 1/4;
     grid-row: 6/14;
     height: 60%;

@@ -1,15 +1,16 @@
 import './Rate.css'
 import {useState, useEffect} from 'react'
 
-function Rate() {
+function Rate({ onRatingChange} ) {
 	const [rating, setRating] = useState(0);
 
-	const handleRatingChange = (event) => {
-        setRating(parseInt(event.target.value));
-
+    const handleRatingChange = (event) => {
+        const newRating = parseInt(event.target.value);
+        setRating(newRating);
+        onRatingChange(newRating); // Call the callback function with the new rating
     };
 
-	useEffect(() => {
+    useEffect(() => {
         console.log(rating); // This will log the updated rating whenever it changes
     }, [rating]); // Run this effect whenever the rating state changes
 
