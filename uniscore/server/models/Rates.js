@@ -26,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     }, {
       tableName: 'rates',
-      timestamps: false
+      timestamps: false,
+      unique: 'unique_rating' //yeni eklendi
     });
   
     Rate.associate = (models) => {
