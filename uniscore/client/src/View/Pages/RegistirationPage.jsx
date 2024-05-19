@@ -53,7 +53,7 @@ function RegistirationPage() {
             })
             .catch(error => {
                 console.error("There was an error logging in!", error);
-                setLoginError("Invalid email or password");  // Set the error message
+                alert("Invalid email or password");
             });
     };
 
