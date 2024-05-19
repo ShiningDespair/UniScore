@@ -5,6 +5,7 @@ import axios from 'axios';
 function SingleRate (props){
     const rate = props.rate;
     const [studentName, setStudentName] = useState("");
+    const [likeCount, setLikeCount] = useState(1);
 
     useEffect(() => {
             axios.get(`http://localhost:3001/rates/bystuId/${rate.stu_id}`)
@@ -27,6 +28,7 @@ function SingleRate (props){
             <div class={SRateCSS.FirstRow}> 
                 <p> {studentName} </p>
                 <div class={SRateCSS.LikeDislike}>
+                    <span>{likeCount}</span>
                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                     <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                 </div>
