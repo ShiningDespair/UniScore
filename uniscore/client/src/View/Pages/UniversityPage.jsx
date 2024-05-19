@@ -26,7 +26,8 @@ function UniversityPage() {
         axios.post("http://localhost:3001/rates", {
             rate_amount: rating,
             com: rateComment,
-            uni_id: id
+            uni_id: id,
+            
         },
         {
             headers: {
