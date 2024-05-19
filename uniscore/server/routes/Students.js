@@ -3,6 +3,10 @@ const router = express.Router();
 const { Student, University } = require('../models');
 const bcrypt = require('bcrypt');
 const {sign} = require('jsonwebtoken')
+const { validateToken } = require('../middlewares/AuthMiddleware');
+
+console.log('JWT_SECRET:', process.env.JWT_SECRET); //çalışıyor mu kontrol
+
 
 // token süresi değişkeni
 const TOKEN_EXPIRY = '5m';
@@ -16,6 +20,12 @@ router.get('/', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+
+
+
+
+
 
 router.post('/', async (req, res) => {
     try {
@@ -68,15 +78,51 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
 
+        // Parola karşılaştırması
         const isPasswordValid = await bcrypt.compare(stu_pw, student.stu_pw);
-
         if (!isPasswordValid) {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
 
-        const accessToken = sign({ stu_mail: student.stu_mail, stu_id: student.stu_id }, 'yourSecretKey', { expiresIn: TOKEN_EXPIRY });
-        res.json({ message: 'Login successful', token: accessToken, student: { id: student.stu_id, name: student.stu_name, surname: student.stu_surname, email: student.stu_mail } });
+        // JSON Web Token oluşturma
+        const accessToken = sign(
+            { stu_mail: student.stu_mail, stu_id: student.stu_id },
+            process.env.JWT_SECRET, // .env dosyasında JWT_SECRET tanımlı olmalı
+            { expiresIn: TOKEN_EXPIRY } // .env dosyasında TOKEN_EXPIRY tanımlı olmalı
+        );
         
+        // Token ile birlikte başarılı giriş mesajını ve öğrenci bilgilerini dönme
+        res.json({
+            message: 'Login successful',
+            token: accessToken,
+            student: { id: student.stu_id, name: student.stu_name, surname: student.stu_surname, email: student.stu_mail, uni_id: student.uni_id }
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
+//kontrol edilmeli!!
+
+router.delete('/deleteRate/:com_id', validateToken, async (req, res) => {
+    try {
+        const com_id = req.params.com_id;
+        const stu_id = req.user.stu_id; // JWT token'dan öğrenci ID'sini alıyoruz
+
+        // Silinecek yorumu bul
+        const rate = await rate.findOne({ where: { com_id, stu_id } });
+
+        if (!rate) {
+            return res.status(404).json({ error: 'Comment not found or user not authorized' });
+        }
+
+        // Yorumu sil
+        await rate.destroy({ where: { com_id, stu_id } });
+
+        res.json({ message: 'Comment deleted successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -86,5 +132,8 @@ router.post('/login', async (req, res) => {
 
 
 
+
+
+router.use(validateToken);
 
 module.exports = router;

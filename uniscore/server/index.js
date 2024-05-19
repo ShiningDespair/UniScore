@@ -2,7 +2,10 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const db = require('./models');
+const dotenv = require('dotenv');
+dotenv.config(); 
 
+console.log('JWT_SECRET:', process.env.JWT_SECRET); 
 
 app.use(express.json());
 app.use(cors());

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {Rate} = require('../models');
+const {Rate,Student} = require('../models');
 const {validateToken} = require('../middlewares/AuthMiddleware')
 
 router.get('/', async (req, res) => {
@@ -13,6 +13,23 @@ router.get('/', async (req, res) => {
 
     
 });
+
+//yorum yapan student ismini bulma 
+
+router.get('/bystuId/:stu_id', async (req, res) => {
+    try {
+        const stu_id = req.params.stu_id;
+        const student = await Student.findByPk(stu_id);
+        res.json(student);
+    }  catch (error) {
+        console.error(error); // Hatanın ayrıntılarını konsola yazdırın
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+    
+});
+
+
+
 
 router.get('/:id', async (req, res) => {
     try {
