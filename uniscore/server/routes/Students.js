@@ -105,29 +105,7 @@ router.post('/login', async (req, res) => {
 
 
 
-//kontrol edilmeli!!
 
-router.delete('/deleteRate/:com_id', validateToken, async (req, res) => {
-    try {
-        const com_id = req.params.com_id;
-        const stu_id = req.user.stu_id; // JWT token'dan öğrenci ID'sini alıyoruz
-
-        // Silinecek yorumu bul
-        const rate = await rate.findOne({ where: { com_id, stu_id } });
-
-        if (!rate) {
-            return res.status(404).json({ error: 'Comment not found or user not authorized' });
-        }
-
-        // Yorumu sil
-        await rate.destroy({ where: { com_id, stu_id } });
-
-        res.json({ message: 'Comment deleted successfully' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
 
 
 
