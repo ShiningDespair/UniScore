@@ -56,4 +56,29 @@ router.post('/',validateToken, async (req, res) => {
      }
 });
 
+
+// Yorum yapma endpoint'ini güncelle
+router.post('/', validateToken, async (req, res) => {
+    try {
+        const { com, rate_amount, uni_id, visibility } = req.body;
+        const stu_id = req.user.stu_id; // JWT token'dan öğrenci ID'sini alıyoruz
+
+        // Öğrencinin daha önce aynı üniversite için yorum yapmadığını kontrol et
+        const existingRating = await Rate.findOne({ where: { uni_id, stu_id } });
+        if (existingRating) {
+            return res.status(400).json({ error: 'You have already rated this university' });
+        }
+
+        // Yeni yorum oluştur
+        const newRate = await Rate.create({ com, rate_amount, uni_id, stu_id, visibility });
+        res.status(201).json(newRate);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
+
 module.exports = router;
