@@ -104,7 +104,35 @@ router.post('/login', async (req, res) => {
 });
 
 
+//accountpage for registered student
 
+router.get('/account', validateToken, async (req, res) => {
+    try {
+        const stu_id = req.user.stu_id;
+        const student = await Student.findOne({
+            where: { stu_id },
+            attributes: ['stu_name', 'stu_surname', 'stu_mail', 'uni_id'],
+            include: [{
+                model: University,
+                attributes: ['uni_name', 'uni_email']
+            }]
+        });
+
+        if (!student) {
+            return res.status(404).json({ error: 'Student not found' });
+        }
+
+        res.json({
+            name: student.stu_name,
+            surname: student.stu_surname,
+            university: student.University.uni_name,
+            student_email: student.stu_mail
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 
 
