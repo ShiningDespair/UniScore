@@ -10,10 +10,11 @@ import { AuthContext } from '../../Helpers/AuthContext';
 function RegistirationPage() {
     const [universities, setUniversities] = useState([]);
     const [loginError, setLoginError] = useState('');
-    const [loading, setLoading] = useState(false);  // Loading state
-    const [registered, setRegistered] = useState(false);  // Registered state
+    const [loading, setLoading] = useState(false);
+    const [registered, setRegistered] = useState(false);
+    const [verificationSent, setVerificationSent] = useState(false);
     const history = useHistory();
-    const {setAuthState} = useContext(AuthContext);
+    const { setAuthState } = useContext(AuthContext);
 
     useEffect(() => {
         axios.get("http://localhost:3001/universities")
@@ -36,14 +37,10 @@ function RegistirationPage() {
         };
         axios.post("http://localhost:3001/students", registerData)
             .then(() => {
-                console.log(registerData);
-
-                setRegistered(true);  // Show loading modal
+                setVerificationSent(true);
                 setTimeout(() => {
-                    setRegistered(false);
-                    window.location.reload(); // This line refreshes the page
-                }, 1000);
-                
+                    setVerificationSent(false);
+                }, 5000);
             })
             .catch(error => {
                 console.error("There was an error registering!", error);
@@ -53,14 +50,13 @@ function RegistirationPage() {
     const handleClickLogIn = (values) => {
         axios.post("http://localhost:3001/students/login", values)
             .then((response) => {
-                console.log(response.data);
-                if(!response.data.error) {
+                if (!response.data.error) {
                     localStorage.setItem("accessToken", response.data.token);
                     setAuthState(true);
                 }
                 setLoginError('');
                 const uniId = response.data.student.uni_id;
-                setLoading(true);  // Show loading modal
+                setLoading(true);
                 setTimeout(() => {
                     setLoading(false);
                     history.push(`/UniversityPage/${uniId}`);
@@ -89,15 +85,15 @@ function RegistirationPage() {
     const registerValidationSchema = Yup.object().shape({
         stu_name: Yup.string().max(50, "İsim en fazla 50 karakter olabilir").required("İsim boş bırakılamaz"),
         stu_surname: Yup.string().max(50, "Soyisim en fazla 50 karakter olabilir").required("Soyisim boş bırakılamaz"),
-        stu_mail: Yup.string().max(100, "Geçerli bir mail giriniz").required("Üniversitenizin size atadığı öğrenci mailini giriniz"),
+        stu_mail: Yup.string().email("Geçerli bir mail giriniz").max(100, "Geçerli bir mail giriniz").required("Üniversitenizin size atadığı öğrenci mailini giriniz"),
         stu_phone: Yup.string().max(14, "Telefon Numaranızı 05XX XXX XX XX şeklinde girebilirsiniz"),
         stu_pw: Yup.string().min(8, "Şifre en az 8 haneli olmalıdır").required("Şifre giriniz"),
         selectedUniversity: Yup.object().nullable().required('Lütfen bir üniversite seçiniz'),
     });
 
     const loginValidationSchema = Yup.object().shape({
-        stu_mail: Yup.string().max(100, "Geçerli bir mail giriniz").required("Üniversitenizin size atadığı öğrenci mailini giriniz"),
-        stu_pw: Yup.string().min(8, "").required("Şifre giriniz"),
+        stu_mail: Yup.string().email("Geçerli bir mail giriniz").max(100, "Geçerli bir mail giriniz").required("Üniversitenizin size atadığı öğrenci mailini giriniz"),
+        stu_pw: Yup.string().min(8, "Şifre en az 8 haneli olmalıdır").required("Şifre giriniz"),
     });
 
     return (
@@ -214,6 +210,14 @@ function RegistirationPage() {
                 <div className="loading-modal">
                     <div className="loading-content">
                         <p>Kayıt Başarılı. Giriş sayfasına yönlendiriliyorsunuz...</p>
+                    </div>
+                </div>
+            )}
+
+            {verificationSent && (
+                <div className="loading-modal">
+                    <div className="loading-content">
+                        <p>Kayıt başarılı. E-posta adresinizi doğrulamak için e-postanızı kontrol edin.</p>
                     </div>
                 </div>
             )}
