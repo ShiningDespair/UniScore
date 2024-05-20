@@ -11,6 +11,7 @@ function RegistirationPage() {
     const [universities, setUniversities] = useState([]);
     const [loginError, setLoginError] = useState('');
     const [loading, setLoading] = useState(false);  // Loading state
+    const [registered, setRegistered] = useState(false);  // Registered state
     const history = useHistory();
     const {setAuthState} = useContext(AuthContext);
 
@@ -36,8 +37,13 @@ function RegistirationPage() {
         axios.post("http://localhost:3001/students", registerData)
             .then(() => {
                 console.log(registerData);
+
+                setRegistered(true);  // Show loading modal
+                setTimeout(() => {
+                    setRegistered(false);
+                    window.location.reload(); // This line refreshes the page
+                }, 1000);
                 
-                history.push(`/Registiration`);
             })
             .catch(error => {
                 console.error("There was an error registering!", error);
@@ -200,6 +206,14 @@ function RegistirationPage() {
                 <div className="loading-modal">
                     <div className="loading-content">
                         <p>Giriş Başarılı. Üniversite sayfanıza yönlendiriliyorsunuz...</p>
+                    </div>
+                </div>
+            )}
+
+            {registered && (
+                <div className="loading-modal">
+                    <div className="loading-content">
+                        <p>Kayıt Başarılı. Giriş sayfasına yönlendiriliyorsunuz...</p>
                     </div>
                 </div>
             )}

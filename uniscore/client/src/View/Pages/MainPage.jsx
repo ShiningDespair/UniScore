@@ -6,6 +6,9 @@ import MainCSS from './MainPage.module.css';
 import SingleUniversity from '../Components/SingleUniversity';
 
 function MainPage() {
+    const [isGovernmental, setIsGovernmental] = useState(null);
+    const [selectedSort,setSelectedSort] = useState(null);
+
     const [currentPage, setCurrentPage] = useState(1);
     const [universities, setUniversities] = useState([]);
     const [filteredUniversities, setFilteredUniversities] = useState([]);
@@ -13,6 +16,10 @@ function MainPage() {
     const [cities, setCities] = useState([]);
     const [selectedCity, setSelectedCity] = useState(null);
     let history = useHistory();
+
+    // State variables to manage loading state of logos and WP images
+    const [logosLoaded, setLogosLoaded] = useState(false);
+    const [wpsLoaded, setWpsLoaded] = useState(false);
 
     const PAGE_SIZE = 6; // Number of items per page
 
@@ -37,26 +44,52 @@ function MainPage() {
         }
     };
 
+    const handleRadioChange =(event) => {
+        setIsGovernmental(event.target.value === "1");
+    }
+
+    const handleSortChange = selectedSort => {
+        setSelectedSort(selectedSort)
+    }
+    
     useEffect(() => {
         async function fetchUniversities() {
             try {
                 const response = await axios.get('http://localhost:3001/universities');
-                setUniversities(response.data);
-                setFilteredUniversities(response.data);
+                const allUniversities = response.data;
+    
+                // Filter universities based on isGovernmental if it's not null
+                let filteredUniversities = allUniversities;
+                if (isGovernmental !== null) {
+                    filteredUniversities = filteredUniversities.filter(university => university.is_governmental == isGovernmental);
+                    console.log(isGovernmental)
+                }
 
-                const uniqueCities = [...new Set(response.data.map(university => university.uni_province))].sort();
+                if (selectedSort && selectedSort.value === 'B') {
+                    filteredUniversities.sort((a, b) => a.uni_rank - b.uni_rank);
+                }
+                
+    
+                setUniversities(filteredUniversities);
+                setFilteredUniversities(filteredUniversities);
+    
+                const uniqueCities = [...new Set(filteredUniversities.map(university => university.uni_province))].sort();
                 const cityOptions = uniqueCities.map(city => ({
                     value: city,
                     label: city,
                 }));
+                
                 setCities(cityOptions);
+                setLogosLoaded(true);
+                setWpsLoaded(true);
             } catch (error) {
                 console.error('Error fetching universities:', error);
             }
         }
-
+    
         fetchUniversities();
-    }, []);
+    }, [isGovernmental, selectedSort]);
+    
 
     const handleSearch = () => {
         filterUniversities(searchQuery, selectedCity);
@@ -100,7 +133,15 @@ function MainPage() {
             <div className={MainCSS.Layout}>
                 <div className={MainCSS.Welcome}>
                         {/* Uniskor Logo */}
-                        <img className={MainCSS.imageOlacak} src=" https://drive.google.com/thumbnail?id=1vrsIDYJIGBDxeFujotFS7mWKiI8Ey1u8" alt="UniSkor Logo"/> 
+                        {!logosLoaded && <p>Loading logos...</p>} {/* Loading state */}
+                    <img
+                        className={MainCSS.imageOlacak}
+                        src="https://drive.google.com/thumbnail?id=1vrsIDYJIGBDxeFujotFS7mWKiI8Ey1u8"
+                        alt="UniSkor Logo"
+                        onLoad={() => setLogosLoaded(true)}
+                        onError={() => setLogosLoaded(true)}
+                        style={{ display: logosLoaded ? 'block' : 'none' }}
+                    />
                     <p className={MainCSS.WelcomeText}>
                         Türkiye'deki tüm 205 üniversiteleri sıralayıp araştırabileceğiniz Türkiye'nin bağımsız ve en büyük üniversite forumu.
                         Sıralamalar tamamıyla  üniversite öğrencilerinin kendi verdikleri skorlar ve memnuniyet anketiyle oluşturulup tüm çıplaklığıyla karşılaştırmanız için burada.
@@ -129,14 +170,31 @@ function MainPage() {
 
                 <div className={MainCSS.SortAndFilter}>
                     <div className={MainCSS.SortContainer}>
-                        <Select placeholder='Sırala' options={SortBy} />
+                    <Select
+                        placeholder='Sırala'
+                        options={SortBy}
+                        value={selectedSort}
+                        onChange={handleSortChange}
+                    />
                         <form className="radio-group">
                             <label>
-                                <input type="radio" name="inventor" value="bell" />
+                                <input                     
+                                    type="radio"
+                                    name="inventor"
+                                    value="1"
+                                    checked={isGovernmental === true}
+                                    onChange={handleRadioChange}
+                                />
                                 <span className="truncate">Devlet Üniversitesi</span>
                             </label>
                             <label>
-                                <input type="radio" name="inventor" value="morse" />
+                                <input  
+                                    type="radio"
+                                    name="inventor"
+                                    value="0"
+                                    checked={isGovernmental === false}
+                                    onChange={handleRadioChange}
+                                 />
                                 <span className="truncate">Vakıf Üniversitesi</span>
                             </label>
                         </form>

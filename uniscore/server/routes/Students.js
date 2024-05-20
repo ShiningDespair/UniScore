@@ -133,6 +133,7 @@ router.get('/account', validateToken, async (req, res) => {
                 university_email: student.University.uni_email,
                 uni_logo: student.University.uni_logo
             }
+            
         });
     } catch (error) {
         console.error(error);
