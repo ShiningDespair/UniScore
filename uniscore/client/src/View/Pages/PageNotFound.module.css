@@ -1,0 +1,10 @@
+.PageNotBody{
+    display:flex;
+    flex-direction: column;
+    gap:50px;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color:#FE7061;
+    background-color: #1F2029;
+}

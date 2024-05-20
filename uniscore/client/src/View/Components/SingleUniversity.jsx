@@ -44,18 +44,19 @@ function SingleUniversity(props) {
 
     // Fill array with full stars
     for (let i = 0; i < fullStars; i++) {
-        stars.push(<span key={i} className="fa fa-star Checked"></span>);
+        stars.push(<span key={i} style={{ color: '#FD7060' }}  className="fa fa-star"></span>);
     }
 
     // Add half star if applicable
     if (hasHalfStar) {
-        stars.push(<span key="half" className="fa fa-star-half-alt checked"></span>);
+        stars.push(<span key="half" style={{ color: '#FD7060' }}  className="fa fa-star-half-alt"></span>);
     }
 
-    // Fill remaining array with empty stars
-    for (let i = stars.length; i < 5; i++) {
-        stars.push(<span key={stars.length} className="fa fa-star"></span>);  // Adjusted key
-    }
+ // Fill remaining array with empty stars
+for (let i = stars.length; i < 5; i++) {
+    stars.push(<span key={i} style={{ color: '#FD7060' }} className="far fa-star"></span>);
+}
+
 
     return (
         <div className={SUCSS.Container} onClick={handleRouteClick} >

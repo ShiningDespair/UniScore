@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Student, University, TempStudent } = require('../models');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { sign } = require('jsonwebtoken');
 const { validateToken } = require('../middlewares/AuthMiddleware');
 const nodemailer = require('nodemailer');

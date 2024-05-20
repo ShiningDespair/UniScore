@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url("https://unicons.iconscout.com/release/v2.1.9/css/unicons.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css");
+
+
 .headerBody{
     display: flex;
     flex-direction: row;

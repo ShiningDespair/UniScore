@@ -33,10 +33,6 @@
     border-radius: 100%;
 }
 
-.fa .fa-star{
-    color: white;
-    background-color: white;
-}
 
 .ContainerLower {
     background-color: #2C2E37;
@@ -51,10 +47,6 @@
 .UniTitle {
     text-align: center;
     justify-content: center;
-}
-
-.Checked {
-    color: cyan;
 }
 
 .Rate {
