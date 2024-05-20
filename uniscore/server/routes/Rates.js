@@ -83,4 +83,85 @@ router.post('/', validateToken, async (req, res) => {
     }
 });
 
+
+
+//yeni eklendi
+
+router.delete('/deleteRate/:com_id', validateToken, async (req, res) => {
+    try {
+        const com_id = req.params.com_id;
+        const stu_id = req.user.stu_id; // JWT token'dan öğrenci ID'sini alıyoruz
+
+        // Silinecek yorumu bul
+        const rate = await Rate.findOne({ where: { com_id, stu_id } });
+
+        if (!rate) {
+            return res.status(404).json({ error: 'Yorum bulunamadı veya kullanıcı yetkili değil' });
+        }
+
+        // Yorumu sil
+        await rate.destroy();
+
+        res.json({ message: 'Yorum başarıyla silindi' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Sunucu Hatası' });
+    }
+});
+
+
+
+// Yorum beğenme işlemi
+router.post('/like/:com_id', validateToken, async (req, res) => {
+    try {
+        const com_id = req.params.com_id;
+        const stu_id = req.user.stu_id;
+
+        const rate = await Rate.findOne({ where: { com_id } });
+        if (!rate) {
+            return res.status(404).json({ error: 'Yorum bulunamadı' });
+        }
+
+        if (rate.like_dislike === stu_id) {
+            return res.status(400).json({ error: 'Bu yorumu zaten beğendiniz' });
+        }
+
+        rate.like_dislike = stu_id;
+        await rate.save();
+
+        res.json({ message: 'Yorum beğenildi', rate });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Sunucu Hatası' });
+    }
+});
+
+// Yorum beğenmeme işlemi
+ router.post('/dislike/:com_id', validateToken, async (req, res) => {
+    try {
+        const com_id = req.params.com_id;
+        const stu_id = req.user.stu_id;
+
+        const rate = await Rate.findOne({ where: { com_id } });
+        if (!rate) {
+            return res.status(404).json({ error: 'Yorum bulunamadı' });
+        }
+
+        if (rate.like_dislike === -stu_id) {
+            return res.status(400).json({ error: 'Bu yorumu zaten beğenmediniz' });
+        }
+
+        rate.like_dislike = -stu_id;
+        await rate.save();
+
+        res.json({ message: 'Yorum beğenilmedi', rate });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Sunucu Hatası' });
+    }
+});
+
+
+
+
 module.exports = router;
