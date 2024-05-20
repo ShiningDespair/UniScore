@@ -5,6 +5,7 @@ import RegistirationPage from './View/Pages/RegistirationPage';
 import MainPage from './View/Pages/MainPage';
 import UniversityPage from './View/Pages/UniversityPage';
 import AccountPage from './View/Pages/AccuntPage';
+import VerificationPage from './View/Pages/VerificationPage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AuthContext } from './Helpers/AuthContext';
 import { useState, useEffect } from 'react';
@@ -39,6 +40,9 @@ function App() {
               </Route>
               <Route path='/AccountPage'>
                 <AccountPage />
+              </Route>
+              <Route path='/verify'>
+                <VerificationPage />
               </Route>
             </Switch>
           </div>

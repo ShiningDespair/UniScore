@@ -55,11 +55,11 @@ router.post('/', async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(stu_pw, 10);
-        const verificationCode = Math.floor(100000 + Math.random() * 900000);
+        const verificationCode = Math.floor(100000 + Math.random() * 900000);;
         const verificationLink = `http://localhost:3000/verify?email=${encodeURIComponent(studentEmail)}&code=${verificationCode}`;
 
         const mailOptions = {
-            from: process.env.EMAIL_USER,
+            from: "uniskortr@gmail",
             to: studentEmail,
             subject: 'UniScore Email Verification',
             html: `Please click the following link to verify your email address: <a href="${verificationLink}">${verificationLink}</a>`
@@ -85,32 +85,42 @@ router.post('/', async (req, res) => {
 router.get('/verify', async (req, res) => {
     try {
         const { email, code } = req.query;
-
+        console.log(`Verification requested for email: ${email}, code: ${code}`);
+        
         if (!email || !code) {
-            return res.status(400).json({ error: 'Email and verification code are required' });
+            console.log("Email or code not provided");
+            return res.status(400).json({ error: 'Email or code not provided' });
         }
 
-        const tempStudent = await TempStudent.findOne({ where: { stu_mail: email, verificationCode: code } });
-        if (!tempStudent) {
-            return res.status(400).json({ error: 'Invalid email or verification code' });
-        }
+        const tempStudent = await TempStudent.findOne({ where: { verificationCode: code } });
+
+        console.log("Temporary student found:", tempStudent);
 
         const newStudent = await Student.create({
-            stu_pw: tempStudent.stu_pw,
-            uni_id: tempStudent.uni_id,
+            stu_id: tempStudent.stu_id, 
+            stu_name: tempStudent.stu_name,
+            stu_surname: tempStudent.stu_surname,
             stu_mail: tempStudent.stu_mail,
-            ...tempStudent.dataValues // Use dataValues to include all student data
+            stu_pw: tempStudent.stu_pw,
+            stu_phone: tempStudent.phone,
+            stu_promotional: tempStudent.stu_promotional,
+            uni_id: tempStudent.uni_id,
+            is_anon: tempStudent.is_anon
+
         });
+        console.log("New student created:", newStudent);
 
         await TempStudent.destroy({ where: { stu_mail: email } });
+        console.log(`Temporary student with email: ${email} deleted`);
 
-        res.status(200).json({ message: 'Student registered successfully' });
+        res.status(201).json({ message: 'Verification successful', newStudent });
         console.log("Registration completed successfully");
     } catch (error) {
-        console.error(error);
+        console.error("Error during verification process:", error);
         res.status(500).json({ error: 'Internal Server Error in Verification' });
     }
 });
+
 
 // Login route
 router.post('/login', async (req, res) => {
