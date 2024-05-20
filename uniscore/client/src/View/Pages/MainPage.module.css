@@ -82,13 +82,13 @@
     white-space: nowrap; /* Prevent text wrapping */
 }
 
+
 .imageOlacak{
     position: relative;
-    background-color: red;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     top:10%;
-    left: 10%;
+    left: 170px;
 }
 
 .SearchBar{

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import MainCSS from './MainPage.module.css';
 import SingleUniversity from '../Components/SingleUniversity';
@@ -11,13 +12,17 @@ function MainPage() {
     const [searchQuery, setSearchQuery] = useState('');
     const [cities, setCities] = useState([]);
     const [selectedCity, setSelectedCity] = useState(null);
+    let history = useHistory();
 
     const PAGE_SIZE = 6; // Number of items per page
 
     const SortBy = [
-        { value: 'A', label: 'Popülerlik' },
+        { value: 'A', label: 'Popülerlik(Servis Dışı)' },
         { value: 'B', label: 'Değerlendirme' },
     ];
+    const handleRegister = () => {
+        history.push("/Registiration");
+    }
 
     const handleNextPage = () => {
         const remainingUniversities = filteredUniversities.length - currentPage * PAGE_SIZE;
@@ -94,13 +99,16 @@ function MainPage() {
         <div className={MainCSS.MainPageBody}>
             <div className={MainCSS.Layout}>
                 <div className={MainCSS.Welcome}>
-                    <div className={MainCSS.imageOlacak}></div>
+                        {/* Uniskor Logo */}
+                        <img className={MainCSS.imageOlacak} src=" https://drive.google.com/thumbnail?id=1vrsIDYJIGBDxeFujotFS7mWKiI8Ey1u8" alt="UniSkor Logo"/> 
                     <p className={MainCSS.WelcomeText}>
-                        non pharetra viverra, quam tortor placerat enim, id efficitur eros quam ut mi. Aliquam erat quam, varius ut tristique ut, sollicitudin ac sapien. Donec molestie convallis egestas. Nullam fringilla nisl magna, at mollis ipsum sollicitudin at. Nulla maximus arcu convallis rutrum lacinia. Nullam sagittis at risus ac fringilla. Sed iaculis, turpis quis eleifend pulvinar, orci metus faucibus est, eget semper odio ante nec mi. Sed porta lobortis egestas. Pellentesque id orci scelerisque, molestie sapien ut, sagittis ligula. Ut sit amet euismod ante. Ut porta augue et scelerisque commodo. Mauris volutpat hendrerit rhoncus. Donec suscipit tellus nec quam venenatis tempus. Proin sollicitudin sodales est a tempusNunc tempor nisl magna, id posuere nunc varius non. Vestibulum efficitur enim vel eleifend auctor. Nulla justo risus, lacinia vel justo non, aliquet rhoncus urna. Donec vel fringilla neque. Aenean malesuada magna nec condimentum ornare. Morbi feugiat dignissim est, in egestas ligula pulvinar at. Morbi vitae neque vel lacus placerat egestas. Nullam sit amet faucibus ligula, vestibulum luctus magna. Aliquam at purus eu massa facilisis pellentesque quis ut nisl.Maecenas venenatis ultrices ante, ac ultrices arcu pulvinar nec. Aenean accumsan eleifend facilisis. Integer elementum tempor leo, fermentum rutrum leo congue nec. Fusce eu ipsum convallis felis aliquam ullamcorper. Donec egestas ligula non euismod accumsan. Integer non hendrerit nisl. Nam luctus vestibulum lectus at hendrerit.Cras tristique odio et condimentum viverra. Praesent venenatis sed lacus quis rhoncus. Sed vitae dui dui. Pellentesque pharetra tempor ante sit amet ultrices. Aenean dapibus pharetra arcu id aliquam. Integer volutpat est nisi. Aliquam tempor sollicitudin convallis. Integer non efficitur tortor. Etiam consequat nibh ut ornare lacinia. Pellentesque fringilla tellus vestibulum ultricies eleifend.Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas mollis, nibh quis rhoncus commodo, diam tortor auctor dui, non tempor erat quam ut leo. In posuere urna sit amet lorem euismod, nec lacinia neque blandit. Maecenas venenatis sapien risus, sit amet pellentesque purus sollicitudin nec. Praesent vel viverra dui. Etiam malesuada pellentesque enim nec fermentum. Duis ultrices fermentum tellus et malesuada. Nam scelerisque massa eu elit convallis bibendum ut eget ipsum. Sed commodo, ligula vel maximus vestibulum, sem lectus sagittis purus, eu suscipit diam magna non mi. Pellentesque sed mi mauris. Vivamus sollicitudin ligula eleifend, viverra ligula viverra, sagittis arcu. Fusce vitae tellus lacinia, vulputate eros sit amet, tristique diam. Curabitur sit amet feugiat tortor.
+                        Türkiye'deki tüm 205 üniversiteleri sıralayıp araştırabileceğiniz Türkiye'nin bağımsız ve en büyük üniversite forumu.
+                        Sıralamalar tamamıyla  üniversite öğrencilerinin kendi verdikleri skorlar ve memnuniyet anketiyle oluşturulup tüm çıplaklığıyla karşılaştırmanız için burada.
+                        Öğrencilerin özgürce yorum yapıp şikayetlerini paylaşabileceği bağımsız bir platform!
                     </p>
                     <div className={MainCSS.RegisterNow}>
                         <p>Misyonumuzda bize destek olmak için hemen kayıt olun!</p>
-                        <button className="btn btn-success"> Kayıt Ol</button>
+                        <button onClick={handleRegister} className="btn btn-success"> Kayıt Ol</button>
                     </div>
                 </div>
 
