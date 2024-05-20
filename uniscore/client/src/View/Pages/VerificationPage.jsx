@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useHistory, useLocation } from 'react-router-dom';
+import VCSS from './VerificationPage.module.css';
 
 function VerificationPage() {
     const [message, setMessage] = useState('');
@@ -32,9 +33,10 @@ function VerificationPage() {
     });
 
     return (
-        <div className="verification-container">
-            <h1>Email Verification</h1>
-            <p>{message}</p>
+        <div className={VCSS.VerificationContainer}>
+            <h1>Hesap Doğrulanıyor</h1>
+
+           <div class={VCSS.loader}></div>
         </div>
     );
 }
