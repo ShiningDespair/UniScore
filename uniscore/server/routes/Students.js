@@ -25,6 +25,7 @@ router.get('/', async (req, res) => {
 
 
 
+//güncellendi,bir mail adresiyle bir kez kayıt oluşturuluyor
 
 
 router.post('/', async (req, res) => {
@@ -35,6 +36,12 @@ router.post('/', async (req, res) => {
         const university = await University.findByPk(uni_id);
         if (!university) {
             return res.status(400).json({ error: 'University not found' });
+        }
+
+        // Öğrencinin e-posta adresinin veritabanında olup olmadığını kontrol et
+        const existingStudent = await Student.findOne({ where: { stu_mail } });
+        if (existingStudent) {
+            return res.status(400).json({ error: 'Student with this email already registered' });
         }
 
         const studentEmail = req.body.stu_mail;
@@ -53,8 +60,6 @@ router.post('/', async (req, res) => {
               
          }
 
-           
-        
 
         // Şifreyi hashle ve yeni öğrenci oluştur
         const hashedPassword = await bcrypt.hash(stu_pw, 10);
