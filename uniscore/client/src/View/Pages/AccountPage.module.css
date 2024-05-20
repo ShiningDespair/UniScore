@@ -1,0 +1,28 @@
+.AccountPageBody{
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #9BABDE;
+    top: 15 2px;
+    background-color:  #1F2029;
+
+}
+.AccountInfo{
+    display:grid;
+    grid-template-rows: 2fr 1fr 1fr 2fr 1fr 1fr;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.AccountName{
+    display:flex;
+    flex-direction: row;
+    gap: 100px;
+}

@@ -15,10 +15,31 @@ function AccountPage() {
     })
 
     return (
-        <div>
-            <p>{student.stu_name +" " + student.stu_surname} </p>
-            <p>{student.stu_mail} </p>
-            <p>User University</p>
+        <div class={AccCSS.AccountPageBody}>
+            <div class={AccCSS.AccountInfo}></div>
+               <div class={AccCSS.Logo}>
+                 <img/> {/* Uni Logo*/}
+               </div>
+
+               <div class={AccCSS.AccountName}>
+                    <input type="text" disabled="true" placeholder='Name'></input>
+                    <input type="text" disabled="true" placeholder='Surname'></input>
+               </div>
+
+               <div className={AccCSS.AccountEmail}>
+               <p> Mail</p><input type="email" disabled="true" placeholder='example@mail.com'></input>
+               </div>
+
+
+
+               <div className={AccCSS.SubmitBtn}>
+                    <button>Çıkış Yap</button>
+               </div>
+
+               <div className={AccCSS.Empty}>
+
+               </div>
+
         </div>
     )
 }
