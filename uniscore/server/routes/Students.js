@@ -111,10 +111,10 @@ router.get('/account', validateToken, async (req, res) => {
         const stu_id = req.user.stu_id;
         const student = await Student.findOne({
             where: { stu_id },
-            attributes: ['stu_name', 'stu_surname', 'stu_mail', 'uni_id'],
+            attributes: ['stu_id', 'stu_name', 'stu_surname', 'stu_mail', 'uni_id'],
             include: [{
                 model: University,
-                attributes: ['uni_name', 'uni_email']
+                attributes: ['uni_name', 'uni_email', 'uni_logo']
             }]
         });
 
@@ -123,10 +123,16 @@ router.get('/account', validateToken, async (req, res) => {
         }
 
         res.json({
-            name: student.stu_name,
-            surname: student.stu_surname,
-            university: student.University.uni_name,
-            student_email: student.stu_mail
+            student: {
+                id: student.stu_id,
+                name: student.stu_name,
+                surname: student.stu_surname,
+                email: student.stu_mail,
+                uni_id: student.uni_id,
+                university: student.University.uni_name,
+                university_email: student.University.uni_email,
+                uni_logo: student.University.uni_logo
+            }
         });
     } catch (error) {
         console.error(error);
@@ -134,6 +140,13 @@ router.get('/account', validateToken, async (req, res) => {
     }
 });
 
+
+
+//logout
+router.post('/logout', validateToken, (req, res) => {
+    // Çıkış işlemi için sadece bir mesaj döndürüyoruz
+    res.json({ message: 'Logout successful' });
+});
 
 
 

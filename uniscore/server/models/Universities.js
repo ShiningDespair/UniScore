@@ -16,8 +16,13 @@ module.exports = (sequelize, DataTypes) => {
       uni_email_structure: DataTypes.STRING,
       uni_rate: DataTypes.FLOAT,
       uni_rate_count: DataTypes.INTEGER,
+      uni_avg_rate:DataTypes.FLOAT,
       uni_comment_count: DataTypes.INTEGER,
+      uni_urap_score:DataTypes.FLOAT,
+      compound_score:DataTypes.FLOAT,
+      uni_rank:DataTypes.INTEGER,      
       uni_yokatlas_link: DataTypes.STRING,
+      is_governmental:DataTypes.INTEGER,
       uni_logo: DataTypes.STRING,
       uni_wp: DataTypes.STRING
     }, {
