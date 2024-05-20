@@ -1,0 +1,73 @@
+.AccountPageBody {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #9BABDE;
+    padding: 20px; /* Adjusted padding */
+    background-color: #1F2029;
+}
+
+.AccountInfo {
+    display: grid;
+    grid-template-rows: 2fr 2fr 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.AccountName, .AccountEmail {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%; /* Full width */
+    max-width: 400px; /* Maximum width */
+}
+
+.AccountName input, .AccountEmail input {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    border: 1px solid #9BABDE; /* Border color to match text color */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #2C2E37; /* Background color */
+    color: #9BABDE; /* Text color */
+}
+
+.AccountEmail p {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.UniLogo {
+    max-width: 200px;
+    max-height: 200px;
+    width: 100px;
+    height: 100px;
+    object-fit:fill; /* Ensure the logo fits within the box */
+}
+
+.SubmitBtn {
+    padding: 10px;
+    background-color: #2C2E37;
+    color: #9BABDE;
+    border: none;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    border-radius: 5px; /* Optional: add border radius */
+}
+
+.SubmitBtn:hover {
+    background-color: #673c23;
+    box-shadow: 0 0 15px 5px rgba(155, 171, 222, 0.6);
+}
+
+.Empty {
+    height: 50px; /* Adjusted to provide space at the bottom if needed */
+}

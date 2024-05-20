@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Select from 'react-select';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';  // Import useHistory
+import { useHistory } from 'react-router-dom';
 import './RegistirationPage.css';
+import { AuthContext } from '../../Helpers/AuthContext';
 
 function RegistirationPage() {
     const [universities, setUniversities] = useState([]);
-    const [loginError, setLoginError] = useState('');  // Error state for login
-    const history = useHistory();  // Create history object
+    const [loginError, setLoginError] = useState('');
+    const [loading, setLoading] = useState(false);  // Loading state
+    const [registered, setRegistered] = useState(false);  // Registered state
+    const history = useHistory();
+    const {setAuthState} = useContext(AuthContext);
 
     useEffect(() => {
         axios.get("http://localhost:3001/universities")
@@ -28,12 +32,18 @@ function RegistirationPage() {
     const handleClickRegister = (values) => {
         const registerData = {
             ...values,
-            uni_id: values.selectedUniversity.value // `uni_id` olarak gönderiliyor
+            uni_id: values.selectedUniversity.value
         };
         axios.post("http://localhost:3001/students", registerData)
             .then(() => {
                 console.log(registerData);
-                history.push(`/UniversityPage/${registerData.uni_id}`);
+
+                setRegistered(true);  // Show loading modal
+                setTimeout(() => {
+                    setRegistered(false);
+                    window.location.reload(); // This line refreshes the page
+                }, 1000);
+                
             })
             .catch(error => {
                 console.error("There was an error registering!", error);
@@ -43,25 +53,23 @@ function RegistirationPage() {
     const handleClickLogIn = (values) => {
         axios.post("http://localhost:3001/students/login", values)
             .then((response) => {
-                console.log(response.data);  // Log the response data
+                console.log(response.data);
                 if(!response.data.error) {
-                    sessionStorage.setItem("accessToken",response.data.token)
+                    localStorage.setItem("accessToken", response.data.token);
+                    setAuthState(true);
                 }
-                setLoginError('');  // Clear any previous error message
-                const uniId = response.data.student.uni_id; // Assuming the backend API returns uni_id
-                history.push(`/UniversityPage/${uniId}`);
-
+                setLoginError('');
+                const uniId = response.data.student.uni_id;
+                setLoading(true);  // Show loading modal
+                setTimeout(() => {
+                    setLoading(false);
+                    history.push(`/UniversityPage/${uniId}`);
+                }, 1000);
             })
             .catch(error => {
                 console.error("There was an error logging in!", error);
-                alert("Invalid email or password");
-                
+                setLoginError("Invalid email or password");
             });
-    };
-
-    // eslint-disable-next-line no-unused-vars
-    const handleClickForgotPassword = () => {
-        // Detaylıca bakılacak
     };
 
     const registerInitialValues = {
@@ -99,7 +107,7 @@ function RegistirationPage() {
                     <div className="row full-height justify-content-center">
                         <div className="col-12 text-center align-self-center py-5">
                             <div className="section pb-5 pt-5 pt-sm-2 text-center">
-                                <h6 className="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
+                                <h6 className="mb-0 pb-3"><span>Giriş Yap </span><span>Kayıt Ol</span></h6>
                                 <input className="checkbox" type="checkbox" id="reg-log" name="reg-log" />
                                 <label htmlFor="reg-log"></label>
                                 <div className="card-3d-wrap mx-auto">
@@ -107,7 +115,7 @@ function RegistirationPage() {
                                         <div className="card-front">
                                             <div className="center-wrap">
                                                 <div className="section text-center">
-                                                    <h4 className="pb-3">Log In</h4>
+                                                    <h4 className="pb-3">Giriş Yap</h4>
                                                     <Formik initialValues={loginInitialValues} onSubmit={handleClickLogIn} validationSchema={loginValidationSchema}>
                                                         <Form>
                                                             <div className="form-group">
@@ -120,7 +128,7 @@ function RegistirationPage() {
                                                             </div>
                                                             <button type="submit" className="btn mt-4">Login</button>
                                                             <br /><br />
-                                                            {loginError && <div className="error">{loginError}</div>} {/* Display the error message */}
+                                                            {loginError && <div className="error">{loginError}</div>}
                                                             <div className="error">
                                                                 <ErrorMessage name="stu_mail" component="span" />
                                                                 <br />
@@ -134,7 +142,7 @@ function RegistirationPage() {
                                         <div className="card-back">
                                             <div className="center-wrap">
                                                 <div className="section text-center">
-                                                    <h4 className="mb-3 pb-3">Sign Up</h4>
+                                                    <h4 className="mb-3 pb-3">Kayıt Ol</h4>
                                                     <Formik initialValues={registerInitialValues} onSubmit={handleClickRegister} validationSchema={registerValidationSchema}>
                                                         {({ setFieldValue, setFieldTouched }) => (
                                                             <Form className="form-group">
@@ -194,6 +202,21 @@ function RegistirationPage() {
                     </div>
                 </div>
             </div>
+            {loading && (
+                <div className="loading-modal">
+                    <div className="loading-content">
+                        <p>Giriş Başarılı. Üniversite sayfanıza yönlendiriliyorsunuz...</p>
+                    </div>
+                </div>
+            )}
+
+            {registered && (
+                <div className="loading-modal">
+                    <div className="loading-content">
+                        <p>Kayıt Başarılı. Giriş sayfasına yönlendiriliyorsunuz...</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
