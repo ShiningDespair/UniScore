@@ -56,7 +56,7 @@ function RegistirationPage() {
                 console.log(response.data);
                 if(!response.data.error) {
                     localStorage.setItem("accessToken", response.data.token);
-                    setAuthState(true);
+                    setAuthState({status:true});
                 }
                 setLoginError('');
                 const uniId = response.data.student.uni_id;

@@ -1,9 +1,10 @@
 import UniPCSS from './UniversityPage.module.css'
 import Rate from '../Components/Rate';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import SingleRate from '../Components/SingleRate';
+import { AuthContext } from '../../Helpers/AuthContext';  
 
 //LEAK VAR ACİL ÇÖZÜLMESİ LAZIM SERVER CMD DURMYUOR DURMYUOR
 function UniversityPage() {
@@ -18,6 +19,7 @@ function UniversityPage() {
     const [rateList, setRates] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [rating, setRating] = useState(0); // State to store the rating
+    const { authState, setAuthState } = useContext(AuthContext);
 
     const PAGE_SIZE = 6; // Number of items per page
 
@@ -40,6 +42,7 @@ function UniversityPage() {
             }
                 console.log("Rate added successfully:", response.data);
                 setRates([...rateList]); // Assuming response.data contains the new rate data
+                window.location.reload(); // This line refreshes the page
             }).catch(error => {
                 alert("Sadece kendi üniversitenize 1 adet değerlendirme ekleyebilirsiniz")
             });

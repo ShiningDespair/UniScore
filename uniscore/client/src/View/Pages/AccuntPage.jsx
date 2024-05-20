@@ -35,7 +35,7 @@ function AccountPage() {
 
     const handleSignOut = () => {
         localStorage.removeItem("accessToken");
-        setAuthState(false);
+        setAuthState({status:false});
         console.log("signed out")
         setLoading(true);  // Show loading modal
         setTimeout(() => {

@@ -10,11 +10,11 @@ import { AuthContext } from './Helpers/AuthContext';
 import { useState, useEffect } from 'react';
 
 function App() {
-  const [authState, setAuthState] = useState(false);
+  const [authState, setAuthState] = useState({id:0,status:false});
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
-      setAuthState(true);
+      setAuthState({status:true});
     }
   }, []);
 

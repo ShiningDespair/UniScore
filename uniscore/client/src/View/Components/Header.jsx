@@ -15,7 +15,7 @@ function Header() {
         <img className={HeaderCSS.Logo} src="https://drive.google.com/thumbnail?id=1BkxphvBw503_fWpTwWS0QMzkZvv3eyo4" alt="UniSkor Yatay Logo" />
         <h2>İletişim</h2>
 
-        {authState ? (
+        {authState.status ? (
           <Link to="/AccountPage">
             <img src='Icons/account.png' alt='Account Icon' />
           </Link>

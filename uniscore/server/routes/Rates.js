@@ -47,11 +47,6 @@ router.post('/', validateToken, async (req, res) => {
         const { com, rate_amount, uni_id, visibility } = req.body;
         const stu_id = req.user.stu_id;
 
-        // Log user and request body for debugging
-        console.log('User object:', req.user);
-        console.log('Request body:', req.body);
-
-        // Fetch the student to verify university ID
         const student = await Student.findOne({ where: { stu_id } });
         if (!student) {
             return res.status(404).json({ error: 'Student not found' });
@@ -60,21 +55,15 @@ router.post('/', validateToken, async (req, res) => {
         const studentUniId = String(student.uni_id).trim();
         const rateUniId = String(uni_id).trim();
 
-        // Check if the student is trying to rate their own university
         if (studentUniId !== rateUniId) {
-            console.log("ID DOESNT MATCH " + studentUniId + " " + rateUniId);
             return res.status(403).json({ error: 'You can only comment on your own university' });
-        } else {
-            console.log("ID MATCHES");
         }
 
-        // Check if the user has already rated this university
         const existingRating = await Rate.findOne({ where: { uni_id: rateUniId, stu_id } });
         if (existingRating) {
             return res.status(400).json({ error: 'You have already rated this university' });
         }
 
-        // Create a new rating
         const newRate = await Rate.create({ com, rate_amount, uni_id: rateUniId, stu_id, visibility });
         res.status(201).json(newRate);
     } catch (error) {
@@ -83,25 +72,18 @@ router.post('/', validateToken, async (req, res) => {
     }
 });
 
-
-
-//yeni eklendi
-
+// Delete a rate
 router.delete('/deleteRate/:com_id', validateToken, async (req, res) => {
     try {
         const com_id = req.params.com_id;
-        const stu_id = req.user.stu_id; // JWT token'dan öğrenci ID'sini alıyoruz
+        const stu_id = req.user.stu_id;
 
-        // Silinecek yorumu bul
         const rate = await Rate.findOne({ where: { com_id, stu_id } });
-
         if (!rate) {
             return res.status(404).json({ error: 'Yorum bulunamadı veya kullanıcı yetkili değil' });
         }
 
-        // Yorumu sil
         await rate.destroy();
-
         res.json({ message: 'Yorum başarıyla silindi' });
     } catch (error) {
         console.error(error);
@@ -109,9 +91,7 @@ router.delete('/deleteRate/:com_id', validateToken, async (req, res) => {
     }
 });
 
-
-
-// Yorum beğenme işlemi
+// Like a rate
 router.post('/like/:com_id', validateToken, async (req, res) => {
     try {
         const com_id = req.params.com_id;
@@ -136,8 +116,8 @@ router.post('/like/:com_id', validateToken, async (req, res) => {
     }
 });
 
-// Yorum beğenmeme işlemi
- router.post('/dislike/:com_id', validateToken, async (req, res) => {
+// Dislike a rate
+router.post('/dislike/:com_id', validateToken, async (req, res) => {
     try {
         const com_id = req.params.com_id;
         const stu_id = req.user.stu_id;
@@ -160,8 +140,5 @@ router.post('/like/:com_id', validateToken, async (req, res) => {
         res.status(500).json({ error: 'Sunucu Hatası' });
     }
 });
-
-
-
 
 module.exports = router;
