@@ -55,7 +55,7 @@ function MainPage() {
     useEffect(() => {
         async function fetchUniversities() {
             try {
-                const response = await axios.get('http://localhost:3001/universities');
+                const response = await axios.get('https://uniskor-api-acb533d7fd97.herokuapp.com/universities');
                 const allUniversities = response.data;
     
                 // Filter universities based on isGovernmental if it's not null

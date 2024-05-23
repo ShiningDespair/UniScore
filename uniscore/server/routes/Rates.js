@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Rate, Student } = require('../models');
+const { Rate, Student, University } = require('../models');
 const { validateToken } = require('../middlewares/AuthMiddleware');
 
 // Get all rates
@@ -65,6 +65,17 @@ router.post('/', validateToken, async (req, res) => {
         }
 
         const newRate = await Rate.create({ com, rate_amount, uni_id: rateUniId, stu_id, visibility });
+
+        //Submit the rate
+        const university = await University.findByPk(req.body.uni_id);
+        if (university) {
+            const currentRate = university.uni_rate || 0; // Get current rate or default to 0
+            const currentRateCount = university.uni_rate_count || 0; // Get current rate count or default to 0
+            const newTotalRate = currentRate + rate_amount; // Add the new rate_amount to the current rate
+            const newRateCount = currentRateCount + 1; // Increase the rate count by 1
+            await university.update({ uni_rate: newTotalRate, uni_rate_count: newRateCount }); // Update the university's rate and rate count
+        }
+
         res.status(201).json(newRate);
     } catch (error) {
         console.error(error);
@@ -85,56 +96,6 @@ router.delete('/deleteRate/:com_id', validateToken, async (req, res) => {
 
         await rate.destroy();
         res.json({ message: 'Yorum başarıyla silindi' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Sunucu Hatası' });
-    }
-});
-
-// Like a rate
-router.post('/like/:com_id', validateToken, async (req, res) => {
-    try {
-        const com_id = req.params.com_id;
-        const stu_id = req.user.stu_id;
-
-        const rate = await Rate.findOne({ where: { com_id } });
-        if (!rate) {
-            return res.status(404).json({ error: 'Yorum bulunamadı' });
-        }
-
-        if (rate.like_dislike === stu_id) {
-            return res.status(400).json({ error: 'Bu yorumu zaten beğendiniz' });
-        }
-
-        rate.like_dislike = stu_id;
-        await rate.save();
-
-        res.json({ message: 'Yorum beğenildi', rate });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Sunucu Hatası' });
-    }
-});
-
-// Dislike a rate
-router.post('/dislike/:com_id', validateToken, async (req, res) => {
-    try {
-        const com_id = req.params.com_id;
-        const stu_id = req.user.stu_id;
-
-        const rate = await Rate.findOne({ where: { com_id } });
-        if (!rate) {
-            return res.status(404).json({ error: 'Yorum bulunamadı' });
-        }
-
-        if (rate.like_dislike === -stu_id) {
-            return res.status(400).json({ error: 'Bu yorumu zaten beğenmediniz' });
-        }
-
-        rate.like_dislike = -stu_id;
-        await rate.save();
-
-        res.json({ message: 'Yorum beğenilmedi', rate });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Sunucu Hatası' });

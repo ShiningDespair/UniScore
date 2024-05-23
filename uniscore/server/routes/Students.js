@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 console.log('JWT_SECRET:', process.env.JWT_SECRET); // Check if JWT_SECRET is working
 
 // Token expiration time
-const TOKEN_EXPIRY = '5000m';
+const TOKEN_EXPIRY = '5m';
 
 // Get all students
 router.get('/', async (req, res) => {
@@ -56,13 +56,13 @@ router.post('/', async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(stu_pw, 10);
         const verificationCode = Math.floor(100000 + Math.random() * 900000);;
-        const verificationLink = `http://localhost:3000/verify?email=${encodeURIComponent(studentEmail)}&code=${verificationCode}`;
+        const verificationLink = `https://master--uniskor.netlify.app/verify?email=${encodeURIComponent(studentEmail)}&code=${verificationCode}`;
 
         const mailOptions = {
             from: "uniskortr@gmail",
             to: studentEmail,
-            subject: 'UniScore Email Verification',
-            html: `Please click the following link to verify your email address: <a href="${verificationLink}">${verificationLink}</a>`
+            subject: 'UniSkore Email Doğrulama',
+            html: `Email adresinizi doğrulamak için linki takip ediniz: <a href="${verificationLink}">${verificationLink}</a>`
         };
 
         transporter.sendMail(mailOptions, async (error, info) => {

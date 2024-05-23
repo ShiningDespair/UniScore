@@ -42,7 +42,7 @@ function App() {
               <Route path='/AccountPage'>
                 <AccountPage />
               </Route>
-              <Route path='/verify'>
+              <Route path='/Verify'>
                 <VerificationPage />
               </Route>
               <Route>

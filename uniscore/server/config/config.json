@@ -8,17 +8,19 @@
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "username":  "uniproje_newssoapof",
+    "password":  "109433754d28bd2452dfab0ff1a9c6a868216fce",
+    "database": "uniproje_newssoapof",
+    "host": "p7v.h.filess.io",
+    "port": 3307,
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username":  "uniproje_newssoapof",
+    "password":  "109433754d28bd2452dfab0ff1a9c6a868216fce",
+    "database": "uniproje_newssoapof",
+    "host": "p7v.h.filess.io",
+    "port": 3307,
     "dialect": "mysql"
   }
 }

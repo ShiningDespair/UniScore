@@ -22,6 +22,9 @@ app.use('/Rates',rateRouter);
 const studentRouter = require('./routes/Students');
 app.use('/Students', studentRouter);
 
+const likeRouter = require('./routes/Likes');
+app.use('/Likes', likeRouter);
+
 
 
 

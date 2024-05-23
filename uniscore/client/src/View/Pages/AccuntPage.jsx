@@ -12,7 +12,7 @@ function AccountPage() {
     const [imageLoaded, setImageLoaded] = useState(false);
 
     useEffect(() => {
-        axios.get("http://localhost:3001/students/account", {
+        axios.get("https://uniskor-api-acb533d7fd97.herokuapp.com/students/account", {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             }

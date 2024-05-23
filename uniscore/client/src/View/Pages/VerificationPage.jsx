@@ -15,7 +15,7 @@ function VerificationPage() {
         console.log("Query parameters received - code:", code, " email:", email);
 
         if (email && code) {
-            axios.get(`http://localhost:3001/students/verify?email=${encodeURIComponent(email)}&code=${encodeURIComponent(code)}`)
+            axios.get(`https://uniskor-api-acb533d7fd97.herokuapp.com/students/verify?email=${encodeURIComponent(email)}&code=${encodeURIComponent(code)}`)
                 .then(response => {
                     console.log("Verification response received:", response);
                     setMessage(response.data.message || 'Verification successful.');

@@ -82,7 +82,7 @@ for (let i = stars.length; i < 5; i++) {
                 </div>
                 <div className="UniProperty">
                     <p>
-                        Sıralama = {university.rank}<br />
+                        Sıralama = {university.uni_rank}<br />
                         Şehir = {toCapitalCase(university.uni_province)}
                     </p>
                 </div>

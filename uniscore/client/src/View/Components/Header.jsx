@@ -10,7 +10,11 @@ function Header() {
   return (
     <div className={HeaderCSS.generalHeader}>
       <div className={HeaderCSS.headerBody}>
-      <i class="fa-solid fa-house fa-2xl"  style={{ color: '#000000' }}></i>
+
+           <Link to="/">
+             <i class="fa-solid fa-house fa-2xl"  style={{ color: '#000000' }}></i>
+           </Link>
+
         <h2>Hakkımızda</h2>
         <img className={HeaderCSS.Logo} src="https://drive.google.com/thumbnail?id=1BkxphvBw503_fWpTwWS0QMzkZvv3eyo4" alt="UniSkor Yatay Logo" />
         <h2>İletişim</h2>
