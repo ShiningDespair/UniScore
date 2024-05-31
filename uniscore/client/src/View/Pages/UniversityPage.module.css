@@ -3,7 +3,7 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     column-gap: 300px;
-    height: 1200px;
+    height: calc(100vh - 160px);
     background-color: #2C2E37;
     border: 2px solid rgb(155, 171, 223);
     border-radius: 10px;

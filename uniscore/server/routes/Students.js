@@ -38,12 +38,12 @@ router.post('/', async (req, res) => {
 
         const university = await University.findByPk(uni_id);
         if (!university) {
-            return res.status(400).json({ error: 'University not found' });
+            return res.status(400).json({ error: 'Üniversite bulunamadı' });
         }
 
         const existingStudent = await Student.findOne({ where: { stu_mail } });
         if (existingStudent) {
-            return res.status(400).json({ error: 'Student with this email already registered' });
+            return res.status(400).json({ error: 'Öğrenci maili zaten kayıtlı' });
         }
 
         const studentEmail = stu_mail;
@@ -51,7 +51,7 @@ router.post('/', async (req, res) => {
         const regex = new RegExp(`@.*${universityEmailStructure}$`);
 
         if (!regex.test(studentEmail)) {
-            return res.status(400).json({ error: 'Student email domain does not match university email domain' });
+            return res.status(400).json({ error: 'Öğrenci maili ile okul maili uyuşmuyor' });
         }
 
         const hashedPassword = await bcrypt.hash(stu_pw, 10);
@@ -68,7 +68,7 @@ router.post('/', async (req, res) => {
         transporter.sendMail(mailOptions, async (error, info) => {
             if (error) {
                 console.error(error);
-                return res.status(500).json({ error: 'Error sending verification email' });
+                return res.status(500).json({ error: 'Doğrulama maili gönderilirken hata yaşandı' });
             } else {
                 console.log('Email sent: ' + info.response);
                 await TempStudent.create({ ...studentData, stu_pw: hashedPassword, uni_id, stu_mail, verificationCode });
@@ -77,7 +77,7 @@ router.post('/', async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error in Post' });
+        res.status(500).json({ error: 'Server hatası' });
     }
 });
 
@@ -129,12 +129,12 @@ router.post('/login', async (req, res) => {
         const student = await Student.findOne({ where: { stu_mail } });
 
         if (!student) {
-            return res.status(401).json({ error: 'Invalid email or password' });
+            return res.status(401).json({ error: 'Geçersiz mail ya da şifre' });
         }
 
         const isPasswordValid = await bcrypt.compare(stu_pw, student.stu_pw);
         if (!isPasswordValid) {
-            return res.status(401).json({ error: 'Invalid email or password' });
+            return res.status(401).json({ error: 'Geçersiz mail ya da şifre' });
         }
 
         const accessToken = sign(
@@ -144,7 +144,7 @@ router.post('/login', async (req, res) => {
         );
 
         res.json({
-            message: 'Login successful',
+            message: 'Giriş Başarılı',
             token: accessToken,
             student: {
                 id: student.stu_id,
@@ -156,7 +156,7 @@ router.post('/login', async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Server hatası' });
     }
 });
 
@@ -174,7 +174,7 @@ router.get('/account', validateToken, async (req, res) => {
         });
 
         if (!student) {
-            return res.status(404).json({ error: 'Student not found' });
+            return res.status(404).json({ error: 'Öğrenci Bulunamadı' });
         }
 
         res.json({
@@ -191,13 +191,13 @@ router.get('/account', validateToken, async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Server Hatası' });
     }
 });
 
 // Logout route
 router.post('/logout', validateToken, (req, res) => {
-    res.json({ message: 'Logout successful' });
+    res.json({ message: 'Oturum kapatma başarılı' });
 });
 
 module.exports = router;

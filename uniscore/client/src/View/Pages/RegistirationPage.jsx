@@ -43,6 +43,8 @@ function RegistirationPage() {
                 }, 5000);
             })
             .catch(error => {
+                
+                alert(error.response.data.error);
                 console.error("There was an error registering!", error);
             });
     };
@@ -63,8 +65,7 @@ function RegistirationPage() {
                 }, 1000);
             })
             .catch(error => {
-                console.error("There was an error logging in!", error);
-                setLoginError("Invalid email or password");
+                setLoginError("Geçersiz şifre veya mail");
             });
     };
 
